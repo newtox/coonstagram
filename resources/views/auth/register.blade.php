@@ -22,6 +22,15 @@
                 </div>
 
                 <div>
+                    <label for="username" class="block text-xs text-slate-400 mb-1">{{ __('coonstagram.username') }}</label>
+                    <input id="username" type="text" name="username" value="{{ old('username') }}" required autocomplete="username"
+                        class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-purple-500">
+                    @error('username')
+                        <p class="text-red-400 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
                     <label for="email" class="block text-xs text-slate-400 mb-1">{{ __('coonstagram.email') }}</label>
                     <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="username"
                         class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-purple-500">
