@@ -38,7 +38,7 @@
                     @csrf
                     @php $isFollowingAuthor = in_array($post->user->id, $followingIds); @endphp
                     <button type="submit" class="text-xs px-3 py-1 rounded-lg transition {{ $isFollowingAuthor ? 'bg-slate-800 text-slate-300 hover:bg-slate-700' : 'bg-purple-600 text-white hover:bg-purple-500' }}">
-                        {{ $isFollowingAuthor ? __('coonstagram.following') : __('coonstagram.follow') }}
+                        {{ $isFollowingAuthor ? __('ui.following') : __('ui.follow') }}
                     </button>
                 </form>
             @endif
@@ -48,7 +48,7 @@
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="text-xs px-3 py-1 rounded-lg bg-red-900/40 text-red-400 hover:bg-red-900/70 transition">
-                        {{ __('coonstagram.delete') }}
+                        {{ __('ui.delete') }}
                     </button>
                 </form>
             @endif
@@ -65,17 +65,17 @@
 
     <div class="flex items-center gap-6 text-sm text-slate-400 border-t border-slate-800 pt-3">
         <button type="button" @click="toggleLike()" class="flex items-center gap-1 transition" :class="liked ? 'text-pink-500' : 'hover:text-pink-400'">
-            &hearts; <span x-text="likeCount"></span> {{ __('coonstagram.likes') }}
+            &hearts; <span x-text="likeCount"></span> {{ __('feed.likes') }}
         </button>
-        <span>&#128172; {{ $post->comments->count() }} {{ __('coonstagram.comments') }}</span>
+        <span>&#128172; {{ $post->comments->count() }} {{ __('feed.comments') }}</span>
 
         @if ($post->user->id !== $user->id)
             <div class="ml-auto">
                 @if ($post->isReportedBy($user))
-                    <span class="text-xs text-slate-600">{{ __('coonstagram.reported') }}</span>
+                    <span class="text-xs text-slate-600">{{ __('feed.reported') }}</span>
                 @else
                     <button type="button" @click="reporting = !reporting" class="text-xs text-slate-500 hover:text-red-400 transition">
-                        {{ __('coonstagram.report') }}
+                        {{ __('feed.report') }}
                     </button>
                 @endif
             </div>
@@ -85,10 +85,10 @@
     @if ($post->user->id !== $user->id && ! $post->isReportedBy($user))
         <form x-show="reporting" x-cloak method="POST" action="{{ route('posts.report', $post) }}" class="flex gap-2 mt-2">
             @csrf
-            <input type="text" name="reason" placeholder="{{ __('coonstagram.report_reason_placeholder') }}"
+            <input type="text" name="reason" placeholder="{{ __('feed.report_reason_placeholder') }}"
                 class="flex-1 bg-slate-950 border border-slate-800 rounded-lg px-2 py-1 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-red-500">
             <button type="submit" class="px-2 py-1 rounded-lg bg-red-900/40 text-red-400 hover:bg-red-900/70 text-xs transition">
-                {{ __('coonstagram.report_submit') }}
+                {{ __('feed.report_submit') }}
             </button>
         </form>
     @endif
@@ -106,19 +106,19 @@
             <form @submit.prevent="submitComment($event)" method="POST" action="{{ route('comments.store', $post) }}" class="flex gap-2 mt-2 pl-4">
                 @csrf
                 <input type="hidden" name="parent_id" value="{{ $comment->id }}">
-                <input type="text" name="body" placeholder="{{ __('coonstagram.reply_placeholder') }}" required
+                <input type="text" name="body" placeholder="{{ __('feed.reply_placeholder') }}" required
                     class="flex-1 bg-slate-950 border border-slate-800 rounded-lg px-2 py-1 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-purple-500">
-                <button type="submit" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs transition">{{ __('coonstagram.reply') }}</button>
+                <button type="submit" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs transition">{{ __('feed.reply') }}</button>
             </form>
         </div>
     @endforeach
 
     <form @submit.prevent="submitComment($event)" method="POST" action="{{ route('comments.store', $post) }}" class="flex gap-2 mt-3">
         @csrf
-        <input type="text" name="body" placeholder="{{ __('coonstagram.write_comment') }}" required
+        <input type="text" name="body" placeholder="{{ __('feed.write_comment') }}" required
             class="flex-1 bg-slate-950 border border-slate-800 rounded-lg px-3 py-1.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500">
-        <button type="submit" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-sm transition">{{ __('coonstagram.send') }}</button>
+        <button type="submit" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-sm transition">{{ __('feed.send') }}</button>
     </form>
 
-    <x-confirm-modal show="confirmingDeletePost" onConfirm="$refs.deletePostForm.submit()" :text="__('coonstagram.delete_confirm')" />
+    <x-confirm-modal show="confirmingDeletePost" onConfirm="$refs.deletePostForm.submit()" :text="__('feed.delete_confirm')" />
 </div>

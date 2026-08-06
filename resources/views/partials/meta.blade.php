@@ -1,7 +1,7 @@
 @props(['title' => 'Coonstagram', 'description' => null, 'indexable' => false])
 
 @php
-    $description = $description ?? __('coonstagram.meta_description');
+    $description = $description ?? __('ui.meta_description');
 @endphp
 
 <meta charset="utf-8">

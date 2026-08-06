@@ -14,12 +14,12 @@
                     @csrf
                     @php $isFollowingListed = in_array($listedUser->id, $followingIds); @endphp
                     <button type="submit" class="text-xs px-3 py-1.5 rounded-lg transition {{ $isFollowingListed ? 'bg-slate-800 text-slate-300 hover:bg-slate-700' : 'bg-purple-600 text-white hover:bg-purple-500' }}">
-                        {{ $isFollowingListed ? __('coonstagram.following') : __('coonstagram.follow') }}
+                        {{ $isFollowingListed ? __('ui.following') : __('ui.follow') }}
                     </button>
                 </form>
             @endif
         </div>
     @empty
-        <p class="px-5 py-4 text-sm text-slate-500">{{ __('coonstagram.no_users_here') }}</p>
+        <p class="px-5 py-4 text-sm text-slate-500">{{ __('profile.no_users_here') }}</p>
     @endforelse
 </div>

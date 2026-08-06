@@ -1,1 +1,1 @@
-<x-error-layout code="404" :title="__('coonstagram.error_404_title')" :text="__('coonstagram.error_404_text')" />
+<x-error-layout code="404" :title="__('errors.error_404_title')" :text="__('errors.error_404_text')" />

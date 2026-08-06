@@ -21,7 +21,7 @@
 
         <a href="{{ auth()->check() ? route('feed') : route('login') }}"
             class="px-6 py-3 rounded-lg bg-purple-600 hover:bg-purple-500 font-semibold transition">
-            {{ auth()->check() ? __('coonstagram.back_to_feed') : __('coonstagram.login') }}
+            {{ auth()->check() ? __('ui.back_to_feed') : __('auth_pages.login') }}
         </a>
     </div>
 </body>

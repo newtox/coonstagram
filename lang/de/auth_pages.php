@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'login' => 'Einloggen',
+    'login_welcome' => 'Willkommen zurück, Coon and Friend.',
+    'remember_me' => 'Angemeldet bleiben',
+    'forgot_password' => 'Passwort vergessen?',
+    'no_account' => 'Noch kein Account?',
+    'register' => 'Registrieren',
+    'register_welcome' => 'Werde Teil von Coon and Friends.',
+    'already_registered' => 'Schon einen Account? Einloggen',
+    'password_confirmation' => 'Passwort bestätigen',
+    'forgot_password_title' => 'Passwort vergessen',
+    'forgot_password_text' => 'Kein Problem. Gib deine E-Mail-Adresse ein, wir schicken dir einen Link zum Zurücksetzen.',
+    'send_reset_link' => 'Reset-Link senden',
+    'reset_password_title' => 'Passwort zurücksetzen',
+    'reset_password_button' => 'Passwort zurücksetzen',
+    'confirm_password_title' => 'Passwort bestätigen',
+    'confirm_password_text' => 'Das ist ein gesicherter Bereich. Bitte bestätige dein Passwort, bevor es weitergeht.',
+    'confirm' => 'Bestätigen',
+    'verify_email_title' => 'E-Mail bestätigen',
+    'verify_email_text' => 'Danke für deine Registrierung! Bitte bestätige deine E-Mail-Adresse über den Link, den wir dir geschickt haben.',
+    'verify_email_resent' => 'Ein neuer Bestätigungslink wurde an deine E-Mail-Adresse geschickt.',
+    'resend_email' => 'Bestätigungs-E-Mail erneut senden',
+];

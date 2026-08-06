@@ -6,8 +6,8 @@
         </div>
 
         <div class="w-full max-w-sm bg-slate-900 border border-slate-800 rounded-xl p-6">
-            <h1 class="text-lg font-bold mb-1">{{ __('coonstagram.forgot_password_title') }}</h1>
-            <p class="text-sm text-slate-500 mb-6">{{ __('coonstagram.forgot_password_text') }}</p>
+            <h1 class="text-lg font-bold mb-1">{{ __('auth_pages.forgot_password_title') }}</h1>
+            <p class="text-sm text-slate-500 mb-6">{{ __('auth_pages.forgot_password_text') }}</p>
 
             @session('status')
                 <div class="mb-4 text-sm text-green-400">{{ session('status') }}</div>
@@ -17,7 +17,7 @@
                 @csrf
 
                 <div>
-                    <label for="email" class="block text-xs text-slate-400 mb-1">{{ __('coonstagram.email') }}</label>
+                    <label for="email" class="block text-xs text-slate-400 mb-1">{{ __('profile.email') }}</label>
                     <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus
                         class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-purple-500">
                     @error('email')
@@ -26,11 +26,11 @@
                 </div>
 
                 <button type="submit" class="w-full py-2.5 rounded-lg bg-purple-600 hover:bg-purple-500 font-semibold transition">
-                    {{ __('coonstagram.send_reset_link') }}
+                    {{ __('auth_pages.send_reset_link') }}
                 </button>
 
                 <div class="text-center text-xs text-slate-500 pt-2">
-                    <a href="{{ route('login') }}" class="hover:text-purple-400 transition">&larr; {{ __('coonstagram.login') }}</a>
+                    <a href="{{ route('login') }}" class="hover:text-purple-400 transition">&larr; {{ __('auth_pages.login') }}</a>
                 </div>
             </form>
         </div>

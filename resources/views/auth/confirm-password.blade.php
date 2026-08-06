@@ -6,14 +6,14 @@
         </div>
 
         <div class="w-full max-w-sm bg-slate-900 border border-slate-800 rounded-xl p-6">
-            <h1 class="text-lg font-bold mb-1">{{ __('coonstagram.confirm_password_title') }}</h1>
-            <p class="text-sm text-slate-500 mb-6">{{ __('coonstagram.confirm_password_text') }}</p>
+            <h1 class="text-lg font-bold mb-1">{{ __('auth_pages.confirm_password_title') }}</h1>
+            <p class="text-sm text-slate-500 mb-6">{{ __('auth_pages.confirm_password_text') }}</p>
 
             <form method="POST" action="{{ route('password.confirm') }}" novalidate class="space-y-4">
                 @csrf
 
                 <div>
-                    <label for="password" class="block text-xs text-slate-400 mb-1">{{ __('coonstagram.password') }}</label>
+                    <label for="password" class="block text-xs text-slate-400 mb-1">{{ __('profile.password') }}</label>
                     <input id="password" type="password" name="password" required autocomplete="current-password" autofocus
                         class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-purple-500">
                     @error('password')
@@ -22,7 +22,7 @@
                 </div>
 
                 <button type="submit" class="w-full py-2.5 rounded-lg bg-purple-600 hover:bg-purple-500 font-semibold transition">
-                    {{ __('coonstagram.confirm') }}
+                    {{ __('auth_pages.confirm') }}
                 </button>
             </form>
         </div>

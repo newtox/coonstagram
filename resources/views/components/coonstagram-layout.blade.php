@@ -20,23 +20,23 @@
                 <div x-show="open" x-transition x-cloak
                     class="absolute right-0 mt-2 w-48 bg-slate-900 border border-slate-800 rounded-lg shadow-lg py-1 z-10">
                     <a href="{{ route('profile.show', auth()->user()) }}" class="block px-4 py-2 text-sm text-slate-300 hover:bg-slate-800 transition">
-                        {{ __('coonstagram.my_profile') }}
+                        {{ __('profile.my_profile') }}
                     </a>
                     <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-slate-300 hover:bg-slate-800 transition">
-                        {{ __('coonstagram.edit_profile') }}
+                        {{ __('profile.edit_profile') }}
                     </a>
                     @if (auth()->user()->isAdmin())
                         <a href="{{ route('admin.users.index') }}" class="block px-4 py-2 text-sm text-purple-400 hover:bg-slate-800 transition">
-                            {{ __('coonstagram.admin_users') }}
+                            {{ __('admin.admin_users') }}
                         </a>
                         <a href="{{ route('admin.reports.index') }}" class="block px-4 py-2 text-sm text-purple-400 hover:bg-slate-800 transition">
-                            {{ __('coonstagram.admin_reports') }}
+                            {{ __('admin.admin_reports') }}
                         </a>
                     @endif
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button class="w-full text-left px-4 py-2 text-sm text-slate-300 hover:bg-slate-800 transition">
-                            {{ __('coonstagram.logout') }}
+                            {{ __('ui.logout') }}
                         </button>
                     </form>
                 </div>

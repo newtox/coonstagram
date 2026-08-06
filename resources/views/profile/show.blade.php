@@ -14,7 +14,7 @@
         }">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div class="lg:col-span-2">
-                <a href="{{ route('feed') }}" class="text-sm text-slate-500 hover:text-purple-400 transition">&larr; {{ __('coonstagram.back_to_feed') }}</a>
+                <a href="{{ route('feed') }}" class="text-sm text-slate-500 hover:text-purple-400 transition">&larr; {{ __('ui.back_to_feed') }}</a>
 
                 <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 mt-4 mb-6">
                     <div class="flex items-center gap-4">
@@ -31,7 +31,7 @@
                             <form method="POST" action="{{ route('users.follow', $profileUser) }}">
                                 @csrf
                                 <button type="submit" class="text-sm px-4 py-2 rounded-lg transition {{ $isFollowing ? 'bg-slate-800 text-slate-300 hover:bg-slate-700' : 'bg-purple-600 text-white hover:bg-purple-500' }}">
-                                    {{ $isFollowing ? __('coonstagram.following') : __('coonstagram.follow') }}
+                                    {{ $isFollowing ? __('ui.following') : __('ui.follow') }}
                                 </button>
                             </form>
                         @endif
@@ -44,15 +44,15 @@
                     <div class="flex gap-8 mt-4 pt-4 border-t border-slate-800">
                         <div>
                             <span class="font-bold">{{ $profileUser->posts()->count() }}</span>
-                            <span class="text-xs text-slate-500">{{ __('coonstagram.posts_label') }}</span>
+                            <span class="text-xs text-slate-500">{{ __('feed.posts_label') }}</span>
                         </div>
-                        <button type="button" @click="openList('{{ route('profile.followers', $profileUser) }}', '{{ __('coonstagram.followers_label') }}')" class="hover:text-purple-400 transition text-left">
+                        <button type="button" @click="openList('{{ route('profile.followers', $profileUser) }}', '{{ __('profile.followers_label') }}')" class="hover:text-purple-400 transition text-left">
                             <span class="font-bold">{{ $profileUser->followersCount() }}</span>
-                            <span class="text-xs text-slate-500">{{ __('coonstagram.followers_label') }}</span>
+                            <span class="text-xs text-slate-500">{{ __('profile.followers_label') }}</span>
                         </button>
-                        <button type="button" @click="openList('{{ route('profile.following', $profileUser) }}', '{{ __('coonstagram.following_label') }}')" class="hover:text-purple-400 transition text-left">
+                        <button type="button" @click="openList('{{ route('profile.following', $profileUser) }}', '{{ __('profile.following_label') }}')" class="hover:text-purple-400 transition text-left">
                             <span class="font-bold">{{ $profileUser->following()->count() }}</span>
-                            <span class="text-xs text-slate-500">{{ __('coonstagram.following_label') }}</span>
+                            <span class="text-xs text-slate-500">{{ __('profile.following_label') }}</span>
                         </button>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                         'posts' => $posts,
                         'user' => $user,
                         'followingIds' => $followingIds,
-                        'emptyText' => __('coonstagram.no_posts'),
+                        'emptyText' => __('feed.no_posts'),
                     ])
                 </div>
 
@@ -81,8 +81,8 @@
                         }">
                         <button type="button" @click="loadMore()" x-show="nextUrl" :disabled="loading"
                             class="px-5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:bg-slate-800 transition disabled:opacity-50">
-                            <span x-show="!loading">{{ __('coonstagram.load_more') }}</span>
-                            <span x-show="loading" x-cloak>{{ __('coonstagram.loading') }}</span>
+                            <span x-show="!loading">{{ __('feed.load_more') }}</span>
+                            <span x-show="loading" x-cloak>{{ __('feed.loading') }}</span>
                         </button>
                     </div>
                 @endif
@@ -90,7 +90,7 @@
 
             <div>
                 <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 mt-4">
-                    <p class="text-xs font-bold text-slate-500 mb-3 tracking-wide">{{ __('coonstagram.latest_followers') }}</p>
+                    <p class="text-xs font-bold text-slate-500 mb-3 tracking-wide">{{ __('profile.latest_followers') }}</p>
                     <div class="space-y-3">
                         @forelse ($latestFollowers as $follower)
                             <a href="{{ route('profile.show', $follower) }}" class="flex items-center gap-2 hover:text-purple-400 transition">
@@ -98,7 +98,7 @@
                                 <span class="text-sm">{{ $follower->display_name ?? $follower->name }}</span>
                             </a>
                         @empty
-                            <p class="text-sm text-slate-600">{{ __('coonstagram.no_followers') }}</p>
+                            <p class="text-sm text-slate-600">{{ __('profile.no_followers') }}</p>
                         @endforelse
                     </div>
                 </div>

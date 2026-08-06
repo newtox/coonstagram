@@ -1,7 +1,7 @@
 <x-coonstagram-layout title="Feed – Coonstagram">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div class="lg:col-span-2">
-            <h1 class="text-xl font-bold text-purple-400 mb-4">{{ __('coonstagram.feed') }}</h1>
+            <h1 class="text-xl font-bold text-purple-400 mb-4">{{ __('feed.feed') }}</h1>
 
             @if (session('status'))
                 <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)" x-transition
@@ -13,11 +13,11 @@
             <div class="flex gap-2 mb-4">
                 <a href="{{ route('feed', ['filter' => 'for-you']) }}"
                     class="px-4 py-1.5 rounded-lg text-sm font-semibold transition {{ $filter === 'for-you' ? 'bg-purple-600 text-white' : 'bg-slate-900 text-slate-400 hover:text-white' }}">
-                    {{ __('coonstagram.for_you') }}
+                    {{ __('feed.for_you') }}
                 </a>
                 <a href="{{ route('feed', ['filter' => 'following']) }}"
                     class="px-4 py-1.5 rounded-lg text-sm font-semibold transition {{ $filter === 'following' ? 'bg-purple-600 text-white' : 'bg-slate-900 text-slate-400 hover:text-white' }}">
-                    {{ __('coonstagram.following_tab') }}
+                    {{ __('feed.following_tab') }}
                 </a>
             </div>
 
@@ -26,14 +26,14 @@
 
                 @if ($user->isAdmin())
                     <select name="post_as" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white mb-3 focus:outline-none focus:border-purple-500">
-                        <option value="">{{ __('coonstagram.post_as_yourself') }}</option>
+                        <option value="">{{ __('feed.post_as_yourself') }}</option>
                         @foreach ($postableUsers as $character)
                             <option value="{{ $character->id }}">{{ $character->display_name ?? $character->name }}</option>
                         @endforeach
                     </select>
                 @endif
 
-                <textarea name="body" rows="3" placeholder="{{ __('coonstagram.whats_new') }}"
+                <textarea name="body" rows="3" placeholder="{{ __('feed.whats_new') }}"
                     class="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-white placeholder-slate-500 focus:outline-none focus:border-purple-500">{{ old('body') }}</textarea>
 
                 @error('body')
@@ -44,7 +44,7 @@
                     <input type="file" name="image" accept="image/*"
                         class="text-sm text-slate-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700">
                     <button type="submit" class="px-5 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 font-semibold text-sm transition">
-                        {{ __('coonstagram.post') }}
+                        {{ __('feed.post') }}
                     </button>
                 </div>
             </form>
@@ -54,7 +54,7 @@
                     'posts' => $posts,
                     'user' => $user,
                     'followingIds' => $followingIds,
-                    'emptyText' => $filter === 'following' ? __('coonstagram.no_posts_following') : __('coonstagram.no_posts'),
+                    'emptyText' => $filter === 'following' ? __('feed.no_posts_following') : __('feed.no_posts'),
                 ])
             </div>
 
@@ -73,8 +73,8 @@
                     }">
                     <button type="button" @click="loadMore()" x-show="nextUrl" :disabled="loading"
                         class="px-5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:bg-slate-800 transition disabled:opacity-50">
-                        <span x-show="!loading">{{ __('coonstagram.load_more') }}</span>
-                        <span x-show="loading" x-cloak>{{ __('coonstagram.loading') }}</span>
+                        <span x-show="!loading">{{ __('feed.load_more') }}</span>
+                        <span x-show="loading" x-cloak>{{ __('feed.loading') }}</span>
                     </button>
                 </div>
             @endif
@@ -90,17 +90,17 @@
                 <div class="flex justify-around mt-4 pt-4 border-t border-slate-800">
                     <div>
                         <p class="font-bold">{{ $user->posts()->count() }}</p>
-                        <p class="text-xs text-slate-500">{{ __('coonstagram.posts_label') }}</p>
+                        <p class="text-xs text-slate-500">{{ __('feed.posts_label') }}</p>
                     </div>
                     <div>
                         <p class="font-bold">{{ $user->followersCount() }}</p>
-                        <p class="text-xs text-slate-500">{{ __('coonstagram.followers_label') }}</p>
+                        <p class="text-xs text-slate-500">{{ __('profile.followers_label') }}</p>
                     </div>
                 </div>
             </div>
 
             <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 mt-4">
-                <p class="text-xs font-bold text-slate-500 mb-3 tracking-wide">{{ __('coonstagram.latest_followers') }}</p>
+                <p class="text-xs font-bold text-slate-500 mb-3 tracking-wide">{{ __('profile.latest_followers') }}</p>
                 <div class="space-y-3">
                     @forelse ($latestFollowers as $follower)
                         <a href="{{ route('profile.show', $follower) }}" class="flex items-center gap-2 hover:text-purple-400 transition">
@@ -108,7 +108,7 @@
                             <span class="text-sm">{{ $follower->display_name ?? $follower->name }}</span>
                         </a>
                     @empty
-                        <p class="text-sm text-slate-600">{{ __('coonstagram.no_followers') }}</p>
+                        <p class="text-sm text-slate-600">{{ __('profile.no_followers') }}</p>
                     @endforelse
                 </div>
             </div>

@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'login' => 'Log in',
+    'login_welcome' => 'Welcome back, Coon and Friend.',
+    'remember_me' => 'Remember me',
+    'forgot_password' => 'Forgot your password?',
+    'no_account' => 'Don\'t have an account?',
+    'register' => 'Register',
+    'register_welcome' => 'Join Coon and Friends.',
+    'already_registered' => 'Already registered? Log in',
+    'password_confirmation' => 'Confirm Password',
+    'forgot_password_title' => 'Forgot Password',
+    'forgot_password_text' => 'No problem. Enter your email address and we\'ll send you a password reset link.',
+    'send_reset_link' => 'Email Password Reset Link',
+    'reset_password_title' => 'Reset Password',
+    'reset_password_button' => 'Reset Password',
+    'confirm_password_title' => 'Confirm Password',
+    'confirm_password_text' => 'This is a secure area. Please confirm your password before continuing.',
+    'confirm' => 'Confirm',
+    'verify_email_title' => 'Verify Email',
+    'verify_email_text' => 'Thanks for signing up! Please verify your email address by clicking the link we just emailed you.',
+    'verify_email_resent' => 'A new verification link has been sent to your email address.',
+    'resend_email' => 'Resend Verification Email',
+];

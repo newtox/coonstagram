@@ -1,1 +1,1 @@
-<x-error-layout code="500" :title="__('coonstagram.error_500_title')" :text="__('coonstagram.error_500_text')" />
+<x-error-layout code="500" :title="__('errors.error_500_title')" :text="__('errors.error_500_text')" />

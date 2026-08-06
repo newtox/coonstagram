@@ -1,8 +1,8 @@
-<x-coonstagram-layout title="{{ __('coonstagram.admin_users') }} – Coonstagram">
+<x-coonstagram-layout title="{{ __('admin.admin_users') }} – Coonstagram">
     <div class="max-w-3xl mx-auto space-y-6">
-        <a href="{{ route('feed') }}" class="text-sm text-slate-500 hover:text-purple-400 transition">&larr; {{ __('coonstagram.back_to_feed') }}</a>
+        <a href="{{ route('feed') }}" class="text-sm text-slate-500 hover:text-purple-400 transition">&larr; {{ __('ui.back_to_feed') }}</a>
 
-        <h1 class="text-xl font-bold text-purple-400">{{ __('coonstagram.admin_users') }}</h1>
+        <h1 class="text-xl font-bold text-purple-400">{{ __('admin.admin_users') }}</h1>
 
         @if (session('status'))
             <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)" x-transition
@@ -39,7 +39,7 @@
                                 @csrf
                                 @method('PATCH')
                                 <button type="submit" class="text-xs px-3 py-1.5 rounded-lg transition {{ $targetUser->is_admin ? 'bg-slate-800 text-slate-300 hover:bg-slate-700' : 'bg-purple-600 text-white hover:bg-purple-500' }}">
-                                    {{ $targetUser->is_admin ? __('coonstagram.revoke_admin') : __('coonstagram.make_admin') }}
+                                    {{ $targetUser->is_admin ? __('admin.revoke_admin') : __('admin.make_admin') }}
                                 </button>
                             </form>
 
@@ -47,15 +47,15 @@
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-xs px-3 py-1.5 rounded-lg bg-red-900/40 text-red-400 hover:bg-red-900/70 transition">
-                                    {{ __('coonstagram.delete') }}
+                                    {{ __('ui.delete') }}
                                 </button>
                             </form>
                         </div>
                     @else
-                        <span class="text-xs text-slate-600">{{ __('coonstagram.thats_you') }}</span>
+                        <span class="text-xs text-slate-600">{{ __('admin.thats_you') }}</span>
                     @endif
 
-                    <x-confirm-modal show="confirmingDelete" onConfirm="$refs.deleteForm.submit()" :text="__('coonstagram.delete_user_confirm')" />
+                    <x-confirm-modal show="confirmingDelete" onConfirm="$refs.deleteForm.submit()" :text="__('admin.delete_user_confirm')" />
                 </div>
             @endforeach
         </div>

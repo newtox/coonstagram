@@ -1,8 +1,8 @@
-<x-coonstagram-layout title="{{ __('coonstagram.admin_reports') }} – Coonstagram">
+<x-coonstagram-layout title="{{ __('admin.admin_reports') }} – Coonstagram">
     <div class="max-w-3xl mx-auto space-y-6">
-        <a href="{{ route('feed') }}" class="text-sm text-slate-500 hover:text-purple-400 transition">&larr; {{ __('coonstagram.back_to_feed') }}</a>
+        <a href="{{ route('feed') }}" class="text-sm text-slate-500 hover:text-purple-400 transition">&larr; {{ __('ui.back_to_feed') }}</a>
 
-        <h1 class="text-xl font-bold text-purple-400">{{ __('coonstagram.admin_reports') }}</h1>
+        <h1 class="text-xl font-bold text-purple-400">{{ __('admin.admin_reports') }}</h1>
 
         @if (session('status'))
             <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)" x-transition
@@ -21,7 +21,7 @@
                             <p class="text-xs text-slate-500">&commat;{{ $post->user->username }} &middot; {{ $post->created_at->diffForHumans() }}</p>
                         </div>
                         <span class="text-xs px-2 py-1 rounded bg-red-900/40 text-red-400">
-                            {{ $post->reports_count }} {{ __('coonstagram.reports_count_label') }}
+                            {{ $post->reports_count }} {{ __('admin.reports_count_label') }}
                         </span>
                     </div>
 
@@ -34,11 +34,11 @@
                     @endif
 
                     <div class="border-t border-slate-800 pt-3 space-y-2">
-                        <p class="text-xs font-bold text-slate-500 tracking-wide">{{ __('coonstagram.report_reasons') }}</p>
+                        <p class="text-xs font-bold text-slate-500 tracking-wide">{{ __('admin.report_reasons') }}</p>
                         @foreach ($post->reports as $report)
                             <p class="text-sm text-slate-400">
                                 <span class="font-semibold text-slate-300">{{ $report->user->display_name ?? $report->user->name }}:</span>
-                                {{ $report->reason ?: __('coonstagram.no_reason_given') }}
+                                {{ $report->reason ?: __('admin.no_reason_given') }}
                             </p>
                         @endforeach
                     </div>
@@ -48,21 +48,21 @@
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="text-xs px-3 py-1.5 rounded-lg bg-red-900/40 text-red-400 hover:bg-red-900/70 transition">
-                                {{ __('coonstagram.delete_post') }}
+                                {{ __('admin.delete_post') }}
                             </button>
                         </form>
                         <form method="POST" action="{{ route('admin.reports.dismiss', $post) }}">
                             @csrf
                             <button type="submit" class="text-xs px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition">
-                                {{ __('coonstagram.dismiss_reports') }}
+                                {{ __('admin.dismiss_reports') }}
                             </button>
                         </form>
                     </div>
 
-                    <x-confirm-modal show="confirmingDelete" onConfirm="$refs.deleteForm.submit()" :text="__('coonstagram.delete_confirm')" />
+                    <x-confirm-modal show="confirmingDelete" onConfirm="$refs.deleteForm.submit()" :text="__('feed.delete_confirm')" />
                 </div>
             @empty
-                <p class="text-slate-500">{{ __('coonstagram.no_reports') }}</p>
+                <p class="text-slate-500">{{ __('admin.no_reports') }}</p>
             @endforelse
         </div>
 

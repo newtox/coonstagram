@@ -6,14 +6,14 @@
         </div>
 
         <div class="w-full max-w-sm bg-slate-900 border border-slate-800 rounded-xl p-6">
-            <h1 class="text-lg font-bold mb-1">{{ __('coonstagram.register') }}</h1>
-            <p class="text-sm text-slate-500 mb-6">{{ __('coonstagram.register_welcome') }}</p>
+            <h1 class="text-lg font-bold mb-1">{{ __('auth_pages.register') }}</h1>
+            <p class="text-sm text-slate-500 mb-6">{{ __('auth_pages.register_welcome') }}</p>
 
             <form method="POST" action="{{ route('register') }}" novalidate class="space-y-4">
                 @csrf
 
                 <div>
-                    <label for="name" class="block text-xs text-slate-400 mb-1">{{ __('coonstagram.name') }}</label>
+                    <label for="name" class="block text-xs text-slate-400 mb-1">{{ __('profile.name') }}</label>
                     <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name"
                         class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-purple-500">
                     @error('name')
@@ -22,7 +22,7 @@
                 </div>
 
                 <div>
-                    <label for="username" class="block text-xs text-slate-400 mb-1">{{ __('coonstagram.username') }}</label>
+                    <label for="username" class="block text-xs text-slate-400 mb-1">{{ __('profile.username') }}</label>
                     <input id="username" type="text" name="username" value="{{ old('username') }}" required autocomplete="username"
                         class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-purple-500">
                     @error('username')
@@ -31,7 +31,7 @@
                 </div>
 
                 <div>
-                    <label for="email" class="block text-xs text-slate-400 mb-1">{{ __('coonstagram.email') }}</label>
+                    <label for="email" class="block text-xs text-slate-400 mb-1">{{ __('profile.email') }}</label>
                     <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="username"
                         class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-purple-500">
                     @error('email')
@@ -40,7 +40,7 @@
                 </div>
 
                 <div>
-                    <label for="password" class="block text-xs text-slate-400 mb-1">{{ __('coonstagram.password') }}</label>
+                    <label for="password" class="block text-xs text-slate-400 mb-1">{{ __('profile.password') }}</label>
                     <input id="password" type="password" name="password" required autocomplete="new-password"
                         class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-purple-500">
                     @error('password')
@@ -49,7 +49,7 @@
                 </div>
 
                 <div>
-                    <label for="password_confirmation" class="block text-xs text-slate-400 mb-1">{{ __('coonstagram.password_confirmation') }}</label>
+                    <label for="password_confirmation" class="block text-xs text-slate-400 mb-1">{{ __('auth_pages.password_confirmation') }}</label>
                     <input id="password_confirmation" type="password" name="password_confirmation" required autocomplete="new-password"
                         class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-purple-500">
                     @error('password_confirmation')
@@ -58,11 +58,11 @@
                 </div>
 
                 <button type="submit" class="w-full py-2.5 rounded-lg bg-purple-600 hover:bg-purple-500 font-semibold transition">
-                    {{ __('coonstagram.register') }}
+                    {{ __('auth_pages.register') }}
                 </button>
 
                 <div class="text-center text-xs text-slate-500 pt-2">
-                    <a href="{{ route('login') }}" class="hover:text-purple-400 transition">{{ __('coonstagram.already_registered') }}</a>
+                    <a href="{{ route('login') }}" class="hover:text-purple-400 transition">{{ __('auth_pages.already_registered') }}</a>
                 </div>
             </form>
         </div>

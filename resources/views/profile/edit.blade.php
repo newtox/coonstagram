@@ -1,23 +1,23 @@
-<x-coonstagram-layout title="{{ __('coonstagram.edit_profile') }} – Coonstagram">
+<x-coonstagram-layout title="{{ __('profile.edit_profile') }} – Coonstagram">
     <div class="max-w-2xl mx-auto space-y-6" x-data="{ confirmingAvatarDelete: false, confirmingAccountDelete: false }">
-        <a href="{{ route('feed') }}" class="text-sm text-slate-500 hover:text-purple-400 transition">&larr; {{ __('coonstagram.back_to_feed') }}</a>
+        <a href="{{ route('feed') }}" class="text-sm text-slate-500 hover:text-purple-400 transition">&larr; {{ __('ui.back_to_feed') }}</a>
 
-        <h1 class="text-xl font-bold text-purple-400">{{ __('coonstagram.edit_profile') }}</h1>
+        <h1 class="text-xl font-bold text-purple-400">{{ __('profile.edit_profile') }}</h1>
 
         @if (session('status') === 'profile-updated')
             <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)" x-transition
                 class="text-sm text-green-400 bg-green-950/40 border border-green-900 rounded-lg px-4 py-2">
-                {{ __('coonstagram.profile_updated') }}
+                {{ __('profile.profile_updated') }}
             </div>
         @elseif (session('status') === 'avatar-removed')
             <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)" x-transition
                 class="text-sm text-green-400 bg-green-950/40 border border-green-900 rounded-lg px-4 py-2">
-                {{ __('coonstagram.avatar_removed') }}
+                {{ __('profile.avatar_removed') }}
             </div>
         @endif
 
         <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
-            <h2 class="font-semibold mb-4">{{ __('coonstagram.profile_info') }}</h2>
+            <h2 class="font-semibold mb-4">{{ __('profile.profile_info') }}</h2>
 
             <form id="delete-avatar-form" x-ref="deleteAvatarForm" method="POST" action="{{ route('profile.avatar.destroy') }}" @submit.prevent="confirmingAvatarDelete = true">
                 @csrf
@@ -31,7 +31,7 @@
                 <div class="flex items-center gap-4">
                     <x-avatar :user="$user" size="w-16 h-16 text-2xl" />
                     <div class="flex-1">
-                        <label for="avatar" class="block text-xs text-slate-400 mb-1">{{ __('coonstagram.avatar') }}</label>
+                        <label for="avatar" class="block text-xs text-slate-400 mb-1">{{ __('profile.avatar') }}</label>
                         <input id="avatar" type="file" name="avatar" accept="image/*"
                             class="text-sm text-slate-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700">
                         @error('avatar')
@@ -40,13 +40,13 @@
                     </div>
                     @if ($user->avatar_path)
                         <button type="submit" form="delete-avatar-form" class="text-xs px-3 py-1.5 rounded-lg bg-red-900/40 text-red-400 hover:bg-red-900/70 transition">
-                            {{ __('coonstagram.reset') }}
+                            {{ __('profile.reset') }}
                         </button>
                     @endif
                 </div>
 
                 <div>
-                    <label for="name" class="block text-xs text-slate-400 mb-1">{{ __('coonstagram.name') }}</label>
+                    <label for="name" class="block text-xs text-slate-400 mb-1">{{ __('profile.name') }}</label>
                     <input id="name" type="text" name="name" value="{{ old('name', $user->name) }}" required
                         class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-purple-500">
                     @error('name')
@@ -55,7 +55,7 @@
                 </div>
 
                 <div>
-                    <label for="username" class="block text-xs text-slate-400 mb-1">{{ __('coonstagram.username') }}</label>
+                    <label for="username" class="block text-xs text-slate-400 mb-1">{{ __('profile.username') }}</label>
                     <input id="username" type="text" name="username" value="{{ old('username', $user->username) }}" required
                         class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-purple-500">
                     @error('username')
@@ -64,7 +64,7 @@
                 </div>
 
                 <div>
-                    <label for="display_name" class="block text-xs text-slate-400 mb-1">{{ __('coonstagram.display_name') }}</label>
+                    <label for="display_name" class="block text-xs text-slate-400 mb-1">{{ __('profile.display_name') }}</label>
                     <input id="display_name" type="text" name="display_name" value="{{ old('display_name', $user->display_name) }}"
                         class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-purple-500">
                     @error('display_name')
@@ -73,7 +73,7 @@
                 </div>
 
                 <div>
-                    <label for="title" class="block text-xs text-slate-400 mb-1">{{ __('coonstagram.title_tagline') }}</label>
+                    <label for="title" class="block text-xs text-slate-400 mb-1">{{ __('profile.title_tagline') }}</label>
                     <input id="title" type="text" name="title" value="{{ old('title', $user->title) }}"
                         class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-purple-500">
                     @error('title')
@@ -82,7 +82,7 @@
                 </div>
 
                 <div>
-                    <label for="bio" class="block text-xs text-slate-400 mb-1">{{ __('coonstagram.bio') }}</label>
+                    <label for="bio" class="block text-xs text-slate-400 mb-1">{{ __('profile.bio') }}</label>
                     <textarea id="bio" name="bio" rows="3"
                         class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-purple-500">{{ old('bio', $user->bio) }}</textarea>
                     @error('bio')
@@ -91,7 +91,7 @@
                 </div>
 
                 <div>
-                    <label for="email" class="block text-xs text-slate-400 mb-1">{{ __('coonstagram.email') }}</label>
+                    <label for="email" class="block text-xs text-slate-400 mb-1">{{ __('profile.email') }}</label>
                     <input id="email" type="email" name="email" value="{{ old('email', $user->email) }}" required
                         class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-purple-500">
                     @error('email')
@@ -100,14 +100,14 @@
 
                     @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                         <p class="text-xs text-slate-500 mt-1">
-                            {{ __('coonstagram.email_unverified') }}
-                            <button form="send-verification" class="underline hover:text-purple-400">{{ __('coonstagram.resend_verification') }}</button>
+                            {{ __('profile.email_unverified') }}
+                            <button form="send-verification" class="underline hover:text-purple-400">{{ __('profile.resend_verification') }}</button>
                         </p>
                     @endif
                 </div>
 
                 <button type="submit" class="px-5 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 font-semibold text-sm transition">
-                    {{ __('coonstagram.save') }}
+                    {{ __('profile.save') }}
                 </button>
             </form>
 
@@ -117,25 +117,25 @@
         </div>
 
         <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
-            <h2 class="font-semibold mb-4">{{ __('coonstagram.language') }}</h2>
+            <h2 class="font-semibold mb-4">{{ __('ui.language') }}</h2>
 
-            <label for="locale" class="block text-xs text-slate-400 mb-1">{{ __('coonstagram.select_language') }}</label>
+            <label for="locale" class="block text-xs text-slate-400 mb-1">{{ __('ui.select_language') }}</label>
             <select id="locale" onchange="window.location.href = this.value"
                 class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-purple-500">
-                <option value="{{ route('locale.switch', 'de') }}" {{ app()->getLocale() === 'de' ? 'selected' : '' }}>{{ __('coonstagram.german') }}</option>
-                <option value="{{ route('locale.switch', 'en') }}" {{ app()->getLocale() === 'en' ? 'selected' : '' }}>{{ __('coonstagram.english') }}</option>
+                <option value="{{ route('locale.switch', 'de') }}" {{ app()->getLocale() === 'de' ? 'selected' : '' }}>{{ __('ui.german') }}</option>
+                <option value="{{ route('locale.switch', 'en') }}" {{ app()->getLocale() === 'en' ? 'selected' : '' }}>{{ __('ui.english') }}</option>
             </select>
         </div>
 
         <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
-            <h2 class="font-semibold mb-4">{{ __('coonstagram.change_password') }}</h2>
+            <h2 class="font-semibold mb-4">{{ __('profile.change_password') }}</h2>
 
             <form method="POST" action="{{ route('password.update') }}" class="space-y-4">
                 @csrf
                 @method('PUT')
 
                 <div>
-                    <label for="current_password" class="block text-xs text-slate-400 mb-1">{{ __('coonstagram.current_password') }}</label>
+                    <label for="current_password" class="block text-xs text-slate-400 mb-1">{{ __('profile.current_password') }}</label>
                     <input id="current_password" type="password" name="current_password" autocomplete="current-password"
                         class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-purple-500">
                     @error('current_password', 'updatePassword')
@@ -144,7 +144,7 @@
                 </div>
 
                 <div>
-                    <label for="password" class="block text-xs text-slate-400 mb-1">{{ __('coonstagram.new_password') }}</label>
+                    <label for="password" class="block text-xs text-slate-400 mb-1">{{ __('profile.new_password') }}</label>
                     <input id="password" type="password" name="password" autocomplete="new-password"
                         class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-purple-500">
                     @error('password', 'updatePassword')
@@ -153,7 +153,7 @@
                 </div>
 
                 <div>
-                    <label for="password_confirmation" class="block text-xs text-slate-400 mb-1">{{ __('coonstagram.confirm_new_password') }}</label>
+                    <label for="password_confirmation" class="block text-xs text-slate-400 mb-1">{{ __('profile.confirm_new_password') }}</label>
                     <input id="password_confirmation" type="password" name="password_confirmation" autocomplete="new-password"
                         class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-purple-500">
                     @error('password_confirmation', 'updatePassword')
@@ -162,21 +162,21 @@
                 </div>
 
                 <button type="submit" class="px-5 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 font-semibold text-sm transition">
-                    {{ __('coonstagram.save_password') }}
+                    {{ __('profile.save_password') }}
                 </button>
             </form>
         </div>
 
         <div class="bg-slate-900 border border-red-900/50 rounded-xl p-6">
-            <h2 class="font-semibold mb-2 text-red-400">{{ __('coonstagram.delete_account') }}</h2>
-            <p class="text-sm text-slate-500 mb-4">{{ __('coonstagram.delete_account_warning') }}</p>
+            <h2 class="font-semibold mb-2 text-red-400">{{ __('profile.delete_account') }}</h2>
+            <p class="text-sm text-slate-500 mb-4">{{ __('profile.delete_account_warning') }}</p>
 
             <form method="POST" action="{{ route('profile.destroy') }}" x-ref="deleteAccountForm" @submit.prevent="confirmingAccountDelete = true" class="space-y-4">
                 @csrf
                 @method('DELETE')
 
                 <div>
-                    <label for="delete_password" class="block text-xs text-slate-400 mb-1">{{ __('coonstagram.password') }}</label>
+                    <label for="delete_password" class="block text-xs text-slate-400 mb-1">{{ __('profile.password') }}</label>
                     <input id="delete_password" type="password" name="password" autocomplete="current-password"
                         class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-purple-500">
                     @error('password', 'userDeletion')
@@ -185,12 +185,12 @@
                 </div>
 
                 <button type="submit" class="px-5 py-2 rounded-lg bg-red-900/40 text-red-400 hover:bg-red-900/70 font-semibold text-sm transition">
-                    {{ __('coonstagram.delete_account') }}
+                    {{ __('profile.delete_account') }}
                 </button>
             </form>
         </div>
 
-        <x-confirm-modal show="confirmingAvatarDelete" onConfirm="$refs.deleteAvatarForm.submit()" :text="__('coonstagram.delete_avatar_confirm')" />
-        <x-confirm-modal show="confirmingAccountDelete" onConfirm="$refs.deleteAccountForm.submit()" :text="__('coonstagram.delete_account_confirm')" />
+        <x-confirm-modal show="confirmingAvatarDelete" onConfirm="$refs.deleteAvatarForm.submit()" :text="__('profile.delete_avatar_confirm')" />
+        <x-confirm-modal show="confirmingAccountDelete" onConfirm="$refs.deleteAccountForm.submit()" :text="__('profile.delete_account_confirm')" />
     </div>
 </x-coonstagram-layout>

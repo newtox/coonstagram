@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'feed' => 'Feed',
+    'for_you' => 'For you',
+    'following_tab' => 'Following',
+    'whats_new' => 'What\'s new?',
+    'post' => 'Post',
+    'post_as_yourself' => 'Post as yourself',
+    'delete_confirm' => 'Really delete this post?',
+    'likes' => 'Likes',
+    'comments' => 'Comments',
+    'write_comment' => 'Write a comment...',
+    'reply' => 'Reply',
+    'reply_placeholder' => 'Reply...',
+    'send' => 'Send',
+    'no_posts' => 'No posts yet.',
+    'no_posts_following' => 'Nobody you follow has posted yet.',
+    'posts_label' => 'Posts',
+    'load_more' => 'Load more',
+    'loading' => 'Loading...',
+    'report' => 'Report',
+    'reported' => 'Reported',
+    'report_reason_placeholder' => 'Reason (optional)',
+    'report_submit' => 'Submit',
+    'report_submitted' => 'Post reported.',
+];
