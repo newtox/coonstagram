@@ -33,7 +33,7 @@
 
         <div class="flex items-center gap-2">
             @if ($post->user->id !== $user->id)
-                <form method="POST" action="{{ route('users.follow', $post->user) }}">
+                <form method="POST" action="{{ route('users.follow', $post->user) }}" novalidate>
                     @csrf
                     @php $isFollowingAuthor = in_array($post->user->id, $followingIds); @endphp
                     <button type="submit" class="text-xs px-3 py-1 rounded-lg transition {{ $isFollowingAuthor ? 'bg-slate-800 text-slate-300 hover:bg-slate-700' : 'bg-purple-600 text-white hover:bg-purple-500' }}">
@@ -43,7 +43,7 @@
             @endif
 
             @if ($post->user->id === $user->id || $user->isAdmin())
-                <form method="POST" action="{{ route('posts.destroy', $post) }}" onsubmit="return confirm('{{ __('coonstagram.delete_confirm') }}')">
+                <form method="POST" action="{{ route('posts.destroy', $post) }}" novalidate onsubmit="return confirm('{{ __('coonstagram.delete_confirm') }}')">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="text-xs px-3 py-1 rounded-lg bg-red-900/40 text-red-400 hover:bg-red-900/70 transition">

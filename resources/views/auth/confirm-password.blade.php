@@ -9,7 +9,7 @@
             <h1 class="text-lg font-bold mb-1">{{ __('coonstagram.confirm_password_title') }}</h1>
             <p class="text-sm text-slate-500 mb-6">{{ __('coonstagram.confirm_password_text') }}</p>
 
-            <form method="POST" action="{{ route('password.confirm') }}" class="space-y-4">
+            <form method="POST" action="{{ route('password.confirm') }}" novalidate class="space-y-4">
                 @csrf
 
                 <div>

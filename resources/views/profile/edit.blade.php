@@ -24,7 +24,7 @@
                 @method('DELETE')
             </form>
 
-            <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="space-y-4">
+            <form method="POST" action="{{ route('profile.update') }}" novalidate enctype="multipart/form-data" class="space-y-4">
                 @csrf
                 @method('PATCH')
 
@@ -130,7 +130,7 @@
         <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
             <h2 class="font-semibold mb-4">{{ __('coonstagram.change_password') }}</h2>
 
-            <form method="POST" action="{{ route('password.update') }}" class="space-y-4">
+            <form method="POST" action="{{ route('password.update') }}" novalidate class="space-y-4">
                 @csrf
                 @method('PUT')
 
@@ -171,7 +171,7 @@
             <h2 class="font-semibold mb-2 text-red-400">{{ __('coonstagram.delete_account') }}</h2>
             <p class="text-sm text-slate-500 mb-4">{{ __('coonstagram.delete_account_warning') }}</p>
 
-            <form method="POST" action="{{ route('profile.destroy') }}" onsubmit="return confirm('{{ __('coonstagram.delete_account_confirm') }}')" class="space-y-4">
+            <form method="POST" action="{{ route('profile.destroy') }}" novalidate onsubmit="return confirm('{{ __('coonstagram.delete_account_confirm') }}')" class="space-y-4">
                 @csrf
                 @method('DELETE')
 

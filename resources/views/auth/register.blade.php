@@ -9,7 +9,7 @@
             <h1 class="text-lg font-bold mb-1">{{ __('coonstagram.register') }}</h1>
             <p class="text-sm text-slate-500 mb-6">{{ __('coonstagram.register_welcome') }}</p>
 
-            <form method="POST" action="{{ route('register') }}" class="space-y-4">
+            <form method="POST" action="{{ route('register') }}" novalidate class="space-y-4">
                 @csrf
 
                 <div>

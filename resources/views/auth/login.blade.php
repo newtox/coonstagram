@@ -13,7 +13,7 @@
                 <div class="mb-4 text-sm text-green-400">{{ session('status') }}</div>
             @endsession
 
-            <form method="POST" action="{{ route('login') }}" class="space-y-4">
+            <form method="POST" action="{{ route('login') }}" novalidate class="space-y-4">
                 @csrf
 
                 <div>

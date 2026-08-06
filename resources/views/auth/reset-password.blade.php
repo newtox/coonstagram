@@ -8,7 +8,7 @@
         <div class="w-full max-w-sm bg-slate-900 border border-slate-800 rounded-xl p-6">
             <h1 class="text-lg font-bold mb-6">{{ __('coonstagram.reset_password_title') }}</h1>
 
-            <form method="POST" action="{{ route('password.store') }}" class="space-y-4">
+            <form method="POST" action="{{ route('password.store') }}" novalidate class="space-y-4">
                 @csrf
                 <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
