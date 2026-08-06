@@ -12,13 +12,6 @@
         </a>
 
         <div class="flex items-center gap-4">
-            <div class="flex items-center gap-1">
-                <a href="{{ route('locale.switch', 'de') }}"
-                    class="px-2 py-1 rounded text-xs font-semibold transition {{ app()->getLocale() === 'de' ? 'bg-purple-600 text-white' : 'bg-slate-800 text-slate-400 hover:text-white' }}">DE</a>
-                <a href="{{ route('locale.switch', 'en') }}"
-                    class="px-2 py-1 rounded text-xs font-semibold transition {{ app()->getLocale() === 'en' ? 'bg-purple-600 text-white' : 'bg-slate-800 text-slate-400 hover:text-white' }}">EN</a>
-            </div>
-
             <div class="relative" x-data="{ open: false }">
                 <button @click="open = !open" @click.outside="open = false" class="block">
                     <x-avatar :user="auth()->user()" size="w-8 h-8 text-sm" />
