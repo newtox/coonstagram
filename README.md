@@ -1,58 +1,113 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+[![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This work is licensed under a
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa].
 
-## About Laravel
+[![CC BY-NC-SA 4.0][cc-by-nc-sa-image]][cc-by-nc-sa]
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+[cc-by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/4.0/
+[cc-by-nc-sa-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
+[cc-by-nc-sa-shield]: https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+# Coonstagram
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Welcome to the **Coonstagram** repository! This is a Laravel-based social media clone inspired by the in-universe app from *South Park: The Fractured but Whole*, featuring a full feed system, profiles, moderation tools, and a dark, purple-accented UI.
 
-## Learning Laravel
+> This is a non-commercial fan/learning project. South Park, its characters, and all related trademarks belong to their respective owners. No original assets, images, or dialogue from the show are included — character names are used purely as an homage.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Overview
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Functionality**: A social feed with posts, likes, comments (with replies), follows, profiles, admin moderation, and multi-language support
+- **Technology**: Built with Laravel 12, Blade + Tailwind CSS, Alpine.js for interactivity, and a Nix flake for a reproducible dev environment
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## Features
 
-## Agentic Development
+- Auth (register, login, password reset, email verification) via Laravel Breeze
+- Feed with "For you" / "Following" filters, text and image posts
+- Likes, comments, and threaded replies — all AJAX-driven, no page reloads
+- Follow/unfollow, profile pages with follower/following lists in a modal
+- Profile editing (avatar, bio, username, password, account deletion)
+- Admin tools: post as any seeded character, user management (promote/demote admins, delete accounts)
+- DE/EN language switcher covering UI text, validation, and auth messages
+- Custom-styled error pages (403/404/419/429/500)
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## How to Use
 
-```bash
-composer require laravel/boost --dev
+### Prerequisites
 
-php artisan boost:install
-```
+- **PHP 8.4+**: Ensure PHP is installed with required extensions (`pdo_mysql`, `mbstring`, `xml`, `curl`, `zip`, `bcmath`, `intl`, `fileinfo`)
+- **Composer**: For PHP dependency management
+- **Node.js & NPM**: For frontend asset compilation
+- **MySQL/MariaDB**: For database management
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+A [Nix flake](./flake.nix) is included if you prefer a reproducible dev shell (`nix develop`) instead of installing PHP/Node manually.
+
+### Installation
+
+1. **Clone this repository**:
+   ```bash
+   git clone git@github.com:newtox/coonstagram.git
+   cd coonstagram
+   ```
+
+2. **Setup**:
+   - Create a `.env` file based on the provided `.env.example`:
+     ```bash
+     cp .env.example .env
+     ```
+   - Configure your database and mail settings in `.env`
+
+3. **Install Dependencies**:
+   ```bash
+   composer install
+   npm install
+   ```
+
+4. **Application Setup**:
+   ```bash
+   php artisan key:generate
+   php artisan migrate --seed
+   php artisan storage:link
+   npm run build
+   ```
+
+### Core Dependencies
+
+#### Backend (composer.json):
+- **Laravel Framework**: ^12.0
+- **Laravel Breeze**: Auth scaffolding
+- **Resend PHP**: Transactional email delivery
+
+#### Frontend (package.json):
+- **Tailwind CSS**: Utility-first styling
+- **Alpine.js**: Lightweight interactivity (modals, AJAX likes/comments, dropdowns)
+- **Vite**: Asset bundling
+
+### Usage
+
+- Access the application at `http://127.0.0.1:8000`
+- Log in with a seeded character account (e.g. `kyle_broflovski@southpark.test` / `password`) or the admin account (`you@southpark.test` / `password`)
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Want to improve Coonstagram? Here's how:
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1. **Fork** the repository
+2. **Create** a feature branch: `git checkout -b feature/your-feature`
+3. **Commit** your changes: `git commit -m 'Add: your feature'`
+4. **Push** to your branch: `git push origin feature/your-feature`
+5. Submit a **pull request**
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project's code is licensed under the **Creative Commons Attribution-NonCommercial-ShareAlike (CC BY-NC-SA)** License.
+
+- **License**: [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+
+By contributing, you agree that your contributions will be licensed under the same license. This license covers the code in this repository only — it does not grant any rights to South Park-related names, characters, or trademarks.
+
+## Contact
+
+Have questions or found a bug?
+- Open an issue on GitHub
+- Or reach out to me at [contact@placeholder.de](mailto:contact@placeholder.de)
