@@ -57,17 +57,35 @@
                     </div>
                 </div>
 
-                <div class="space-y-4">
-                    @forelse ($posts as $post)
-                        @include('partials.post-card', ['post' => $post])
-                    @empty
-                        <p class="text-slate-500">{{ __('coonstagram.no_posts') }}</p>
-                    @endforelse
+                <div class="space-y-4" id="profile-posts-container">
+                    @include('partials.post-list', [
+                        'posts' => $posts,
+                        'user' => $user,
+                        'followingIds' => $followingIds,
+                        'emptyText' => __('coonstagram.no_posts'),
+                    ])
                 </div>
 
-                <div class="mt-6">
-                    {{ $posts->links() }}
-                </div>
+                @if ($posts->hasMorePages())
+                    <div class="mt-6 text-center" x-data="{
+                            nextUrl: '{{ $posts->nextPageUrl() }}',
+                            loading: false,
+                            async loadMore() {
+                                this.loading = true;
+                                const res = await fetch(this.nextUrl, { headers: { 'Accept': 'application/json' } });
+                                const data = await res.json();
+                                document.getElementById('profile-posts-container').insertAdjacentHTML('beforeend', data.html);
+                                this.nextUrl = data.nextPageUrl;
+                                this.loading = false;
+                            }
+                        }">
+                        <button type="button" @click="loadMore()" x-show="nextUrl" :disabled="loading"
+                            class="px-5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:bg-slate-800 transition disabled:opacity-50">
+                            <span x-show="!loading">{{ __('coonstagram.load_more') }}</span>
+                            <span x-show="loading" x-cloak>{{ __('coonstagram.loading') }}</span>
+                        </button>
+                    </div>
+                @endif
             </div>
 
             <div>

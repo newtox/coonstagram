@@ -24,10 +24,22 @@ class FeedController extends Controller
 
         $posts = $query->paginate(10)->withQueryString();
 
+        if ($request->wantsJson()) {
+            return response()->json([
+                'html' => view('partials.post-list', [
+                    'posts' => $posts,
+                    'user' => $user,
+                    'followingIds' => $followingIds,
+                    'emptyText' => null,
+                ])->render(),
+                'nextPageUrl' => $posts->nextPageUrl(),
+            ]);
+        }
+
         $latestFollowers = $user->followers()->latest('follows.created_at')->take(2)->get();
 
         $postableUsers = $user->isAdmin()
-            ? User::where('id', '!=', $user->id, 'and')->orderBy('display_name')->get()
+            ? User::where('id', '!=', $user->id)->orderBy('display_name')->get()
             : collect();
 
         return view('feed.index', [

@@ -32,6 +32,9 @@ return [
     'my_profile' => 'My Profile',
     'edit_profile' => 'Edit Profile',
 
+    'load_more' => 'Load more',
+    'loading' => 'Loading...',
+
     'profile_info' => 'Profile Information',
     'profile_updated' => 'Profile updated.',
     'avatar_removed' => 'Avatar removed.',

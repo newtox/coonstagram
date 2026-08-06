@@ -16,7 +16,20 @@ class UserProfileController extends Controller
             ->with(['user', 'comments.user', 'comments.replies.user'])
             ->withCount('likes')
             ->latest()
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString();
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'html' => view('partials.post-list', [
+                    'posts' => $posts,
+                    'user' => $authUser,
+                    'followingIds' => $followingIds,
+                    'emptyText' => null,
+                ])->render(),
+                'nextPageUrl' => $posts->nextPageUrl(),
+            ]);
+        }
 
         $isFollowing = in_array($user->id, $followingIds);
         $latestFollowers = $user->followers()->latest('follows.created_at')->take(2)->get();

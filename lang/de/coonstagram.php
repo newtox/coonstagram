@@ -32,6 +32,9 @@ return [
     'my_profile' => 'Mein Profil',
     'edit_profile' => 'Profil bearbeiten',
 
+    'load_more' => 'Mehr laden',
+    'loading' => 'Lädt...',
+
     'profile_info' => 'Profilinformationen',
     'profile_updated' => 'Profil aktualisiert.',
     'avatar_removed' => 'Profilbild zurückgesetzt.',
