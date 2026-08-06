@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $title ?? 'Coonstagram' }}</title>
+    @include('partials.meta', ['title' => ($title ?? 'Coonstagram') . ' – Coonstagram'])
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-slate-950 text-white min-h-screen">
@@ -13,6 +11,14 @@
             <span class="text-lg font-bold text-purple-400">Coonstagram</span>
         </a>
 
+        <div class="flex items-center gap-4">
+            <div class="flex items-center gap-1">
+                <a href="{{ route('locale.switch', 'de') }}"
+                    class="px-2 py-1 rounded text-xs font-semibold transition {{ app()->getLocale() === 'de' ? 'bg-purple-600 text-white' : 'bg-slate-800 text-slate-400 hover:text-white' }}">DE</a>
+                <a href="{{ route('locale.switch', 'en') }}"
+                    class="px-2 py-1 rounded text-xs font-semibold transition {{ app()->getLocale() === 'en' ? 'bg-purple-600 text-white' : 'bg-slate-800 text-slate-400 hover:text-white' }}">EN</a>
+            </div>
+
             <div class="relative" x-data="{ open: false }">
                 <button @click="open = !open" @click.outside="open = false" class="block">
                     <x-avatar :user="auth()->user()" size="w-8 h-8 text-sm" />
@@ -21,10 +27,10 @@
                 <div x-show="open" x-transition x-cloak
                     class="absolute right-0 mt-2 w-48 bg-slate-900 border border-slate-800 rounded-lg shadow-lg py-1 z-10">
                     <a href="{{ route('profile.show', auth()->user()) }}" class="block px-4 py-2 text-sm text-slate-300 hover:bg-slate-800 transition">
-                        Mein Profil
+                        {{ __('coonstagram.my_profile') }}
                     </a>
                     <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-slate-300 hover:bg-slate-800 transition">
-                        Profil bearbeiten
+                        {{ __('coonstagram.edit_profile') }}
                     </a>
                     @if (auth()->user()->isAdmin())
                         <a href="{{ route('admin.users.index') }}" class="block px-4 py-2 text-sm text-purple-400 hover:bg-slate-800 transition">

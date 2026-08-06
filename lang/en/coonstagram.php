@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'meta_description' => 'The South Park tablet feed for Coon and Friends. Post, like, and follow your favorite characters.',
+
     'feed' => 'Feed',
     'for_you' => 'For you',
     'following_tab' => 'Following',

@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'meta_description' => 'Der South-Park-Tablet-Feed für Coon and Friends. Poste, like und folge deinen Lieblingscharakteren.',
+
     'feed' => 'Feed',
     'for_you' => 'For you',
     'following_tab' => 'Folgt',
