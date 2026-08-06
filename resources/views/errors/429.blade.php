@@ -1,0 +1,1 @@
+<x-error-layout code="429" :title="__('coonstagram.error_429_title')" :text="__('coonstagram.error_429_text')" />
