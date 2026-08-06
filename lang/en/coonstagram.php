@@ -61,6 +61,20 @@ return [
     'cannot_revoke_own_admin' => 'You can\'t revoke your own admin rights.',
     'cannot_delete_own_account_here' => 'You can\'t delete your own account here.',
 
+    'report' => 'Report',
+    'reported' => 'Reported',
+    'report_reason_placeholder' => 'Reason (optional)',
+    'report_submit' => 'Submit',
+    'report_submitted' => 'Post reported.',
+    'admin_reports' => 'Reported Posts',
+    'reports_count_label' => 'reports',
+    'report_reasons' => 'Reasons',
+    'no_reason_given' => 'No reason given',
+    'delete_post' => 'Delete post',
+    'dismiss_reports' => 'Dismiss reports',
+    'reports_dismissed' => 'Reports dismissed.',
+    'no_reports' => 'No reported posts.',
+
     'user_rights_updated' => 'User rights updated.',
     'account_deleted' => 'Account deleted.',
 

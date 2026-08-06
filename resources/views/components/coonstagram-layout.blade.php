@@ -30,6 +30,9 @@
                         <a href="{{ route('admin.users.index') }}" class="block px-4 py-2 text-sm text-purple-400 hover:bg-slate-800 transition">
                             {{ __('coonstagram.admin_users') }}
                         </a>
+                        <a href="{{ route('admin.reports.index') }}" class="block px-4 py-2 text-sm text-purple-400 hover:bg-slate-800 transition">
+                            {{ __('coonstagram.admin_reports') }}
+                        </a>
                     @endif
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf

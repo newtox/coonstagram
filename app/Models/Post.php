@@ -30,4 +30,18 @@ class Post extends Model
     {
         return $user ? $this->likes()->where('user_id', $user->id)->exists() : false;
     }
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
+    }
+
+    public function isReportedBy(?User $user): bool
+    {
+        if (! $user) {
+            return false;
+        }
+
+        return $this->reports()->where('user_id', $user->id)->exists();
+    }
 }

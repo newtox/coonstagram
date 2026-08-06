@@ -61,6 +61,20 @@ return [
     'cannot_revoke_own_admin' => 'Du kannst dir selbst nicht die Admin-Rechte entziehen.',
     'cannot_delete_own_account_here' => 'Du kannst deinen eigenen Account hier nicht löschen.',
 
+    'report' => 'Melden',
+    'reported' => 'Gemeldet',
+    'report_reason_placeholder' => 'Grund (optional)',
+    'report_submit' => 'Absenden',
+    'report_submitted' => 'Post gemeldet.',
+    'admin_reports' => 'Gemeldete Posts',
+    'reports_count_label' => 'Meldungen',
+    'report_reasons' => 'Gründe',
+    'no_reason_given' => 'Kein Grund angegeben',
+    'delete_post' => 'Post löschen',
+    'dismiss_reports' => 'Meldungen verwerfen',
+    'reports_dismissed' => 'Meldungen verworfen.',
+    'no_reports' => 'Keine gemeldeten Posts.',
+
     'user_rights_updated' => 'Nutzerrechte aktualisiert.',
     'account_deleted' => 'Account gelöscht.',
 

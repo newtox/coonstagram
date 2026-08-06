@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\AdminReportController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FeedController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +40,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/posts/{post}/like', [LikeController::class, 'toggle'])->name('posts.like');
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::post('/posts/{post}/report', [ReportController::class, 'store'])->name('posts.report');
     Route::post('/users/{targetUser}/follow', [FollowController::class, 'toggle'])->name('users.follow');
 });
 
@@ -45,6 +48,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
     Route::patch('/users/{targetUser}/toggle-admin', [AdminUserController::class, 'toggleAdmin'])->name('users.toggle-admin');
     Route::delete('/users/{targetUser}', [AdminUserController::class, 'destroy'])->name('users.destroy');
+    Route::get('/reports', [AdminReportController::class, 'index'])->name('reports.index');
+    Route::post('/reports/{post}/dismiss', [AdminReportController::class, 'dismiss'])->name('reports.dismiss');
 });
 
 require __DIR__ . '/auth.php';
