@@ -19,7 +19,7 @@
 
         <div class="bg-slate-900 border border-slate-800 rounded-xl divide-y divide-slate-800">
             @foreach ($users as $targetUser)
-                <div class="flex items-center justify-between px-5 py-3">
+                <div class="flex items-center justify-between px-5 py-3" x-data="{ confirmingDelete: false }">
                     <div class="flex items-center gap-3">
                         <x-avatar :user="$targetUser" size="w-10 h-10 text-sm" />
                         <div>
@@ -43,7 +43,7 @@
                                 </button>
                             </form>
 
-                            <form method="POST" action="{{ route('admin.users.destroy', $targetUser) }}" onsubmit="return confirm('{{ __('coonstagram.delete_user_confirm') }}')">
+                            <form method="POST" action="{{ route('admin.users.destroy', $targetUser) }}" x-ref="deleteForm" @submit.prevent="confirmingDelete = true">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-xs px-3 py-1.5 rounded-lg bg-red-900/40 text-red-400 hover:bg-red-900/70 transition">
@@ -54,6 +54,8 @@
                     @else
                         <span class="text-xs text-slate-600">{{ __('coonstagram.thats_you') }}</span>
                     @endif
+
+                    <x-confirm-modal show="confirmingDelete" onConfirm="$refs.deleteForm.submit()" :text="__('coonstagram.delete_user_confirm')" />
                 </div>
             @endforeach
         </div>

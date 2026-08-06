@@ -1,5 +1,5 @@
 <x-coonstagram-layout title="{{ __('coonstagram.edit_profile') }} – Coonstagram">
-    <div class="max-w-2xl mx-auto space-y-6">
+    <div class="max-w-2xl mx-auto space-y-6" x-data="{ confirmingAvatarDelete: false, confirmingAccountDelete: false }">
         <a href="{{ route('feed') }}" class="text-sm text-slate-500 hover:text-purple-400 transition">&larr; {{ __('coonstagram.back_to_feed') }}</a>
 
         <h1 class="text-xl font-bold text-purple-400">{{ __('coonstagram.edit_profile') }}</h1>
@@ -19,12 +19,12 @@
         <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
             <h2 class="font-semibold mb-4">{{ __('coonstagram.profile_info') }}</h2>
 
-            <form id="delete-avatar-form" method="POST" action="{{ route('profile.avatar.destroy') }}" onsubmit="return confirm('{{ __('coonstagram.delete_avatar_confirm') }}')">
+            <form id="delete-avatar-form" x-ref="deleteAvatarForm" method="POST" action="{{ route('profile.avatar.destroy') }}" @submit.prevent="confirmingAvatarDelete = true">
                 @csrf
                 @method('DELETE')
             </form>
 
-            <form method="POST" action="{{ route('profile.update') }}" novalidate enctype="multipart/form-data" class="space-y-4">
+            <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="space-y-4">
                 @csrf
                 @method('PATCH')
 
@@ -130,7 +130,7 @@
         <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
             <h2 class="font-semibold mb-4">{{ __('coonstagram.change_password') }}</h2>
 
-            <form method="POST" action="{{ route('password.update') }}" novalidate class="space-y-4">
+            <form method="POST" action="{{ route('password.update') }}" class="space-y-4">
                 @csrf
                 @method('PUT')
 
@@ -171,7 +171,7 @@
             <h2 class="font-semibold mb-2 text-red-400">{{ __('coonstagram.delete_account') }}</h2>
             <p class="text-sm text-slate-500 mb-4">{{ __('coonstagram.delete_account_warning') }}</p>
 
-            <form method="POST" action="{{ route('profile.destroy') }}" novalidate onsubmit="return confirm('{{ __('coonstagram.delete_account_confirm') }}')" class="space-y-4">
+            <form method="POST" action="{{ route('profile.destroy') }}" x-ref="deleteAccountForm" @submit.prevent="confirmingAccountDelete = true" class="space-y-4">
                 @csrf
                 @method('DELETE')
 
@@ -189,5 +189,8 @@
                 </button>
             </form>
         </div>
+
+        <x-confirm-modal show="confirmingAvatarDelete" onConfirm="$refs.deleteAvatarForm.submit()" :text="__('coonstagram.delete_avatar_confirm')" />
+        <x-confirm-modal show="confirmingAccountDelete" onConfirm="$refs.deleteAccountForm.submit()" :text="__('coonstagram.delete_account_confirm')" />
     </div>
 </x-coonstagram-layout>

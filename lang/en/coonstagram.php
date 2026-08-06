@@ -84,6 +84,10 @@ return [
     'delete_account_warning' => 'Once your account is deleted, this cannot be undone.',
     'delete_account_confirm' => 'Really delete your account? This cannot be undone.',
 
+    'confirm_title' => 'Are you sure?',
+    'cancel' => 'Cancel',
+    'confirm_delete' => 'Delete',
+
     'language' => 'Language',
     'select_language' => 'Select language',
     'german' => 'Deutsch',

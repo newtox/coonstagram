@@ -84,6 +84,10 @@ return [
     'delete_account_warning' => 'Einmal gelöscht, gibt es kein Zurück mehr.',
     'delete_account_confirm' => 'Account wirklich unwiderruflich löschen?',
 
+    'confirm_title' => 'Bist du sicher?',
+    'cancel' => 'Abbrechen',
+    'confirm_delete' => 'Löschen',
+
     'language' => 'Sprache',
     'select_language' => 'Sprache auswählen',
     'german' => 'Deutsch',

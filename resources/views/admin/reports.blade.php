@@ -13,7 +13,7 @@
 
         <div class="space-y-4">
             @forelse ($reportedPosts as $post)
-                <div class="bg-slate-900 border border-slate-800 rounded-xl p-5">
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-5" x-data="{ confirmingDelete: false }">
                     <div class="flex items-center gap-3 mb-3">
                         <x-avatar :user="$post->user" />
                         <div class="flex-1">
@@ -44,7 +44,7 @@
                     </div>
 
                     <div class="flex items-center gap-2 mt-4">
-                        <form method="POST" action="{{ route('posts.destroy', $post) }}" onsubmit="return confirm('{{ __('coonstagram.delete_confirm') }}')">
+                        <form method="POST" action="{{ route('posts.destroy', $post) }}" x-ref="deleteForm" @submit.prevent="confirmingDelete = true">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="text-xs px-3 py-1.5 rounded-lg bg-red-900/40 text-red-400 hover:bg-red-900/70 transition">
@@ -58,6 +58,8 @@
                             </button>
                         </form>
                     </div>
+
+                    <x-confirm-modal show="confirmingDelete" onConfirm="$refs.deleteForm.submit()" :text="__('coonstagram.delete_confirm')" />
                 </div>
             @empty
                 <p class="text-slate-500">{{ __('coonstagram.no_reports') }}</p>

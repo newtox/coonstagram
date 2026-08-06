@@ -2,6 +2,7 @@
         liked: {{ $post->isLikedBy($user) ? 'true' : 'false' }},
         likeCount: {{ $post->likes_count }},
         reporting: false,
+        confirmingDeletePost: false,
         async toggleLike() {
             const res = await fetch('{{ route('posts.like', $post) }}', {
                 method: 'POST',
@@ -33,7 +34,7 @@
 
         <div class="flex items-center gap-2">
             @if ($post->user->id !== $user->id)
-                <form method="POST" action="{{ route('users.follow', $post->user) }}" novalidate>
+                <form method="POST" action="{{ route('users.follow', $post->user) }}">
                     @csrf
                     @php $isFollowingAuthor = in_array($post->user->id, $followingIds); @endphp
                     <button type="submit" class="text-xs px-3 py-1 rounded-lg transition {{ $isFollowingAuthor ? 'bg-slate-800 text-slate-300 hover:bg-slate-700' : 'bg-purple-600 text-white hover:bg-purple-500' }}">
@@ -43,7 +44,7 @@
             @endif
 
             @if ($post->user->id === $user->id || $user->isAdmin())
-                <form method="POST" action="{{ route('posts.destroy', $post) }}" novalidate onsubmit="return confirm('{{ __('coonstagram.delete_confirm') }}')">
+                <form method="POST" action="{{ route('posts.destroy', $post) }}" x-ref="deletePostForm" @submit.prevent="confirmingDeletePost = true">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="text-xs px-3 py-1 rounded-lg bg-red-900/40 text-red-400 hover:bg-red-900/70 transition">
@@ -118,4 +119,6 @@
             class="flex-1 bg-slate-950 border border-slate-800 rounded-lg px-3 py-1.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500">
         <button type="submit" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-sm transition">{{ __('coonstagram.send') }}</button>
     </form>
+
+    <x-confirm-modal show="confirmingDeletePost" onConfirm="$refs.deletePostForm.submit()" :text="__('coonstagram.delete_confirm')" />
 </div>
