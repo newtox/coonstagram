@@ -19,22 +19,22 @@
 
         <div class="bg-slate-900 border border-slate-800 rounded-xl divide-y divide-slate-800">
             @foreach ($users as $targetUser)
-                <div class="flex items-center justify-between px-5 py-3" x-data="{ confirmingDelete: false }">
-                    <div class="flex items-center gap-3">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-5 py-3" x-data="{ confirmingDelete: false }">
+                    <div class="flex items-center gap-3 min-w-0">
                         <x-avatar :user="$targetUser" size="w-10 h-10 text-sm" />
-                        <div>
-                            <p class="font-semibold flex items-center gap-2">
+                        <div class="min-w-0">
+                            <p class="font-semibold flex items-center gap-2 truncate">
                                 {{ $targetUser->display_name ?? $targetUser->name }}
                                 @if ($targetUser->is_admin)
-                                    <span class="text-xs px-2 py-0.5 rounded bg-purple-600 text-white">Admin</span>
+                                    <span class="text-xs px-2 py-0.5 rounded bg-purple-600 text-white shrink-0">Admin</span>
                                 @endif
                             </p>
-                            <p class="text-xs text-slate-500">&commat;{{ $targetUser->username }}</p>
+                            <p class="text-xs text-slate-500 truncate">&commat;{{ $targetUser->username }}</p>
                         </div>
                     </div>
 
                     @if ($targetUser->id !== $user->id)
-                        <div class="flex items-center gap-2">
+                        <div class="flex items-center gap-2 shrink-0">
                             <form method="POST" action="{{ route('admin.users.toggle-admin', $targetUser) }}">
                                 @csrf
                                 @method('PATCH')
@@ -52,7 +52,7 @@
                             </form>
                         </div>
                     @else
-                        <span class="text-xs text-slate-600">{{ __('admin.thats_you') }}</span>
+                        <span class="text-xs text-slate-600 shrink-0">{{ __('admin.thats_you') }}</span>
                     @endif
 
                     <x-confirm-modal show="confirmingDelete" onConfirm="$refs.deleteForm.submit()" :text="__('admin.delete_user_confirm')" />
