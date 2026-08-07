@@ -40,10 +40,10 @@
                     <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
                 @enderror
 
-                <div class="flex items-center justify-between mt-3">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-3">
                     <input type="file" name="image" accept="image/*"
-                        class="text-sm text-slate-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700">
-                    <button type="submit" class="px-5 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 font-semibold text-sm transition">
+                        class="w-full sm:w-auto min-w-0 text-sm text-slate-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700">
+                    <button type="submit" class="shrink-0 px-5 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 font-semibold text-sm transition">
                         {{ __('feed.post') }}
                     </button>
                 </div>

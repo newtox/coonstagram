@@ -30,16 +30,16 @@
 
                 <div class="flex items-center gap-4">
                     <x-avatar :user="$user" size="w-16 h-16 text-2xl" />
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <label for="avatar" class="block text-xs text-slate-400 mb-1">{{ __('profile.avatar') }}</label>
                         <input id="avatar" type="file" name="avatar" accept="image/*"
-                            class="text-sm text-slate-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700">
+                            class="w-full text-sm text-slate-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700">
                         @error('avatar')
                             <p class="text-red-400 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>
                     @if ($user->avatar_path)
-                        <button type="submit" form="delete-avatar-form" class="text-xs px-3 py-1.5 rounded-lg bg-red-900/40 text-red-400 hover:bg-red-900/70 transition">
+                        <button type="submit" form="delete-avatar-form" class="shrink-0 text-xs px-3 py-1.5 rounded-lg bg-red-900/40 text-red-400 hover:bg-red-900/70 transition">
                             {{ __('profile.reset') }}
                         </button>
                     @endif
