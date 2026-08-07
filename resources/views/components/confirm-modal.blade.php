@@ -5,7 +5,6 @@
     @click.self="{{ $show }} = false" @keydown.escape.window="{{ $show }} = false">
     <div x-show="{{ $show }}" x-transition class="bg-slate-900 border border-slate-800 rounded-xl w-full max-w-sm p-6">
         <h3 class="font-bold mb-2">{{ __('ui.confirm_title') }}</h3>
-        <p class="text-sm text-slate-400 mb-6">{{ $text ?? __('coonstagram.confirm_text') }}</p>
         <div class="flex justify-end gap-2">
             <button type="button" @click="{{ $show }} = false" class="px-4 py-2 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 text-sm transition">
                 {{ __('ui.cancel') }}

@@ -27,12 +27,12 @@
         <a href="{{ route('profile.show', $post->user) }}">
             <x-avatar :user="$post->user" />
         </a>
-        <div class="flex-1">
-            <a href="{{ route('profile.show', $post->user) }}" class="font-semibold hover:text-purple-400 transition">{{ $post->user->display_name ?? $post->user->name }}</a>
-            <p class="text-xs text-slate-500">&commat;{{ $post->user->username }} &middot; {{ $post->created_at->diffForHumans() }}</p>
+        <div class="flex-1 min-w-0">
+            <a href="{{ route('profile.show', $post->user) }}" class="font-semibold hover:text-purple-400 transition truncate block">{{ $post->user->display_name ?? $post->user->name }}</a>
+            <p class="text-xs text-slate-500 truncate">&commat;{{ $post->user->username }} &middot; {{ $post->created_at->diffForHumans() }}</p>
         </div>
 
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2 shrink-0">
             @if ($post->user->id !== $user->id)
                 <form method="POST" action="{{ route('users.follow', $post->user) }}">
                     @csrf

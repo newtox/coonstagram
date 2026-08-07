@@ -22,6 +22,6 @@ class ReportController extends Controller
             ['reason' => $data['reason'] ?? null]
         );
 
-        return back()->with('status', __('coonstagram.report_submitted'));
+        return back()->with('status', __('feed.report_submitted'));
     }
 }

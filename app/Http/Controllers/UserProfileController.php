@@ -66,7 +66,7 @@ class UserProfileController extends Controller
             'user' => $authUser,
             'users' => $users,
             'followingIds' => $followingIds,
-            'listTitle' => __('coonstagram.followers_label'),
+            'listTitle' => __('profile.followers_label'),
         ]);
     }
 
@@ -92,7 +92,7 @@ class UserProfileController extends Controller
             'user' => $authUser,
             'users' => $users,
             'followingIds' => $followingIds,
-            'listTitle' => __('coonstagram.following_label'),
+            'listTitle' => __('profile.following_label'),
         ]);
     }
 }

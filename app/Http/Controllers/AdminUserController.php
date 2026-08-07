@@ -20,18 +20,18 @@ class AdminUserController extends Controller
     public function toggleAdmin(Request $request, User $targetUser)
     {
         if ($targetUser->id === $request->user()->id) {
-            return back()->withErrors(['admin' => __('coonstagram.cannot_revoke_own_admin')]);
+            return back()->withErrors(['admin' => __('admin.cannot_revoke_own_admin')]);
         }
 
         $targetUser->update(['is_admin' => ! $targetUser->is_admin]);
 
-        return back()->with('status', __('coonstagram.user_rights_updated'));
+        return back()->with('status', __('admin.user_rights_updated'));
     }
 
     public function destroy(Request $request, User $targetUser)
     {
         if ($targetUser->id === $request->user()->id) {
-            return back()->withErrors(['admin' => __('coonstagram.cannot_delete_own_account_here')]);
+            return back()->withErrors(['admin' => __('admin.cannot_delete_own_account_here')]);
         }
 
         if ($targetUser->avatar_path) {
@@ -40,6 +40,6 @@ class AdminUserController extends Controller
 
         $targetUser->delete($targetUser->id);
 
-        return back()->with('status', __('coonstagram.account_deleted'));
+        return back()->with('status', __('admin.account_deleted'));
     }
 }

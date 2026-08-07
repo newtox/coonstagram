@@ -25,6 +25,6 @@ class AdminReportController extends Controller
     {
         $post->reports()->delete();
 
-        return back()->with('status', __('coonstagram.reports_dismissed'));
+        return back()->with('status', __('admin.reports_dismissed'));
     }
 }
