@@ -1,4 +1,4 @@
-<x-coonstagram-layout title="Feed – Coonstagram">
+<x-coonstagram-layout title="Feed – Coonstagram" :indexable="true">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div class="lg:col-span-2">
             <h1 class="text-xl font-bold text-purple-400 mb-4">{{ __('feed.feed') }}</h1>

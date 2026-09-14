@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
-    @include('partials.meta', ['title' => ($title ?? 'Coonstagram') . ' – Coonstagram'])
+    @include('partials.meta', ['title' => ($title ?? 'Coonstagram') . ' – Coonstagram', 'indexable' => $indexable ?? false])
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-slate-950 text-white min-h-screen">

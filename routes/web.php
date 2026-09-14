@@ -12,9 +12,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [FeedController::class, 'index']);
 
 Route::get('/feed', [FeedController::class, 'index'])->name('feed');
 
