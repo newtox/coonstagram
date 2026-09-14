@@ -15,39 +15,55 @@
                     class="px-4 py-1.5 rounded-lg text-sm font-semibold transition {{ $filter === 'for-you' ? 'bg-purple-600 text-white' : 'bg-slate-900 text-slate-400 hover:text-white' }}">
                     {{ __('feed.for_you') }}
                 </a>
-                <a href="{{ route('feed', ['filter' => 'following']) }}"
-                    class="px-4 py-1.5 rounded-lg text-sm font-semibold transition {{ $filter === 'following' ? 'bg-purple-600 text-white' : 'bg-slate-900 text-slate-400 hover:text-white' }}">
-                    {{ __('feed.following_tab') }}
-                </a>
+                @auth
+                    <a href="{{ route('feed', ['filter' => 'following']) }}"
+                        class="px-4 py-1.5 rounded-lg text-sm font-semibold transition {{ $filter === 'following' ? 'bg-purple-600 text-white' : 'bg-slate-900 text-slate-400 hover:text-white' }}">
+                        {{ __('feed.following_tab') }}
+                    </a>
+                @endauth
             </div>
 
-            <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data" class="bg-slate-900 border border-slate-800 rounded-xl p-5 mb-4">
-                @csrf
+            @auth
+                <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data" class="bg-slate-900 border border-slate-800 rounded-xl p-5 mb-4">
+                    @csrf
 
-                @if ($user->isAdmin())
-                    <select name="post_as" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white mb-3 focus:outline-none focus:border-purple-500">
-                        <option value="">{{ __('feed.post_as_yourself') }}</option>
-                        @foreach ($postableUsers as $character)
-                            <option value="{{ $character->id }}">{{ $character->display_name ?? $character->name }}</option>
-                        @endforeach
-                    </select>
-                @endif
+                    @if ($user->isAdmin())
+                        <select name="post_as" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white mb-3 focus:outline-none focus:border-purple-500">
+                            <option value="">{{ __('feed.post_as_yourself') }}</option>
+                            @foreach ($postableUsers as $character)
+                                <option value="{{ $character->id }}">{{ $character->display_name ?? $character->name }}</option>
+                            @endforeach
+                        </select>
+                    @endif
 
-                <textarea name="body" rows="3" placeholder="{{ __('feed.whats_new') }}"
-                    class="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-white placeholder-slate-500 focus:outline-none focus:border-purple-500">{{ old('body') }}</textarea>
+                    <textarea name="body" rows="3" placeholder="{{ __('feed.whats_new') }}"
+                        class="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-white placeholder-slate-500 focus:outline-none focus:border-purple-500">{{ old('body') }}</textarea>
 
-                @error('body')
-                    <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
-                @enderror
+                    @error('body')
+                        <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
+                    @enderror
 
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-3">
-                    <input type="file" name="image" accept="image/*"
-                        class="w-full sm:w-auto min-w-0 text-sm text-slate-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700">
-                    <button type="submit" class="shrink-0 px-5 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 font-semibold text-sm transition">
-                        {{ __('feed.post') }}
-                    </button>
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-3">
+                        <input type="file" name="image" accept="image/*"
+                            class="w-full sm:w-auto min-w-0 text-sm text-slate-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700">
+                        <button type="submit" class="shrink-0 px-5 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 font-semibold text-sm transition">
+                            {{ __('feed.post') }}
+                        </button>
+                    </div>
+                </form>
+            @else
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 mb-4 text-center">
+                    <p class="text-slate-400 text-sm mb-3">{{ __('feed.login_to_post') }}</p>
+                    <div class="flex justify-center gap-3">
+                        <a href="{{ route('login') }}" class="px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 text-white text-sm font-semibold transition">
+                            {{ __('auth_pages.login') }}
+                        </a>
+                        <a href="{{ route('register') }}" class="px-4 py-2 rounded-lg border border-slate-700 hover:border-purple-500 text-slate-300 text-sm transition">
+                            {{ __('auth_pages.register') }}
+                        </a>
+                    </div>
                 </div>
-            </form>
+            @endauth
 
             <div class="space-y-4" id="posts-container">
                 @include('partials.post-list', [
@@ -81,37 +97,52 @@
         </div>
 
         <div>
-            <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 text-center">
-                <x-avatar :user="$user" size="w-16 h-16 text-2xl mx-auto mb-3" />
-                <p class="font-bold">{{ $user->display_name ?? $user->name }}</p>
-                <p class="text-purple-400 text-sm">&commat;{{ $user->username }}</p>
-                <p class="text-slate-500 text-xs mt-2">{{ $user->title }}</p>
+            @auth
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 text-center">
+                    <x-avatar :user="$user" size="w-16 h-16 text-2xl mx-auto mb-3" />
+                    <p class="font-bold">{{ $user->display_name ?? $user->name }}</p>
+                    <p class="text-purple-400 text-sm">&commat;{{ $user->username }}</p>
+                    <p class="text-slate-500 text-xs mt-2">{{ $user->title }}</p>
 
-                <div class="flex justify-around mt-4 pt-4 border-t border-slate-800">
-                    <div>
-                        <p class="font-bold">{{ $user->posts()->count() }}</p>
-                        <p class="text-xs text-slate-500">{{ __('feed.posts_label') }}</p>
-                    </div>
-                    <div>
-                        <p class="font-bold">{{ $user->followersCount() }}</p>
-                        <p class="text-xs text-slate-500">{{ __('profile.followers_label') }}</p>
+                    <div class="flex justify-around mt-4 pt-4 border-t border-slate-800">
+                        <div>
+                            <p class="font-bold">{{ $user->posts()->count() }}</p>
+                            <p class="text-xs text-slate-500">{{ __('feed.posts_label') }}</p>
+                        </div>
+                        <div>
+                            <p class="font-bold">{{ $user->followersCount() }}</p>
+                            <p class="text-xs text-slate-500">{{ __('profile.followers_label') }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 mt-4">
-                <p class="text-xs font-bold text-slate-500 mb-3 tracking-wide">{{ __('profile.latest_followers') }}</p>
-                <div class="space-y-3">
-                    @forelse ($latestFollowers as $follower)
-                        <a href="{{ route('profile.show', $follower) }}" class="flex items-center gap-2 hover:text-purple-400 transition">
-                            <x-avatar :user="$follower" size="w-8 h-8 text-sm" />
-                            <span class="text-sm">{{ $follower->display_name ?? $follower->name }}</span>
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 mt-4">
+                    <p class="text-xs font-bold text-slate-500 mb-3 tracking-wide">{{ __('profile.latest_followers') }}</p>
+                    <div class="space-y-3">
+                        @forelse ($latestFollowers as $follower)
+                            <a href="{{ route('profile.show', $follower) }}" class="flex items-center gap-2 hover:text-purple-400 transition">
+                                <x-avatar :user="$follower" size="w-8 h-8 text-sm" />
+                                <span class="text-sm">{{ $follower->display_name ?? $follower->name }}</span>
+                            </a>
+                        @empty
+                            <p class="text-sm text-slate-600">{{ __('profile.no_followers') }}</p>
+                        @endforelse
+                    </div>
+                </div>
+            @else
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 text-center">
+                    <p class="font-semibold mb-2">{{ __('feed.guest_cta_title') }}</p>
+                    <p class="text-slate-500 text-sm mb-4">{{ __('feed.guest_cta_text') }}</p>
+                    <div class="flex flex-col gap-2">
+                        <a href="{{ route('register') }}" class="px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 text-white text-sm font-semibold transition">
+                            {{ __('auth_pages.register') }}
                         </a>
-                    @empty
-                        <p class="text-sm text-slate-600">{{ __('profile.no_followers') }}</p>
-                    @endforelse
+                        <a href="{{ route('login') }}" class="px-4 py-2 rounded-lg border border-slate-700 hover:border-purple-500 text-slate-300 text-sm transition">
+                            {{ __('auth_pages.login') }}
+                        </a>
+                    </div>
                 </div>
-            </div>
+            @endauth
         </div>
     </div>
 </x-coonstagram-layout>

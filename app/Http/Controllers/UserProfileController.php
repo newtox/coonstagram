@@ -10,7 +10,7 @@ class UserProfileController extends Controller
     public function show(Request $request, User $user)
     {
         $authUser = $request->user();
-        $followingIds = $authUser->following()->pluck('users.id')->all();
+        $followingIds = $authUser ? $authUser->following()->pluck('users.id')->all() : [];
 
         $posts = $user->posts()
             ->with(['user', 'comments.user', 'comments.replies.user'])
@@ -31,7 +31,7 @@ class UserProfileController extends Controller
             ]);
         }
 
-        $isFollowing = in_array($user->id, $followingIds);
+        $isFollowing = $authUser ? in_array($user->id, $followingIds) : false;
         $latestFollowers = $user->followers()->latest('follows.created_at')->take(2)->get();
 
         return view('profile.show', [

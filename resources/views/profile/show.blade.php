@@ -27,14 +27,20 @@
                             @endif
                         </div>
 
-                        @if ($profileUser->id !== $user->id)
-                            <form method="POST" action="{{ route('users.follow', $profileUser) }}">
-                                @csrf
-                                <button type="submit" class="text-sm px-4 py-2 rounded-lg transition {{ $isFollowing ? 'bg-slate-800 text-slate-300 hover:bg-slate-700' : 'bg-purple-600 text-white hover:bg-purple-500' }}">
-                                    {{ $isFollowing ? __('ui.following') : __('ui.follow') }}
-                                </button>
-                            </form>
-                        @endif
+                        @auth
+                            @if ($profileUser->id !== $user->id)
+                                <form method="POST" action="{{ route('users.follow', $profileUser) }}">
+                                    @csrf
+                                    <button type="submit" class="text-sm px-4 py-2 rounded-lg transition {{ $isFollowing ? 'bg-slate-800 text-slate-300 hover:bg-slate-700' : 'bg-purple-600 text-white hover:bg-purple-500' }}">
+                                        {{ $isFollowing ? __('ui.following') : __('ui.follow') }}
+                                    </button>
+                                </form>
+                            @endif
+                        @else
+                            <a href="{{ route('login') }}" class="text-sm px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-500 transition">
+                                {{ __('ui.follow') }}
+                            </a>
+                        @endauth
                     </div>
 
                     @if ($profileUser->bio)
@@ -46,14 +52,25 @@
                             <span class="font-bold">{{ $profileUser->posts()->count() }}</span>
                             <span class="text-xs text-slate-500">{{ __('feed.posts_label') }}</span>
                         </div>
-                        <button type="button" @click="openList('{{ route('profile.followers', $profileUser) }}', '{{ __('profile.followers_label') }}')" class="hover:text-purple-400 transition text-left">
-                            <span class="font-bold">{{ $profileUser->followersCount() }}</span>
-                            <span class="text-xs text-slate-500">{{ __('profile.followers_label') }}</span>
-                        </button>
-                        <button type="button" @click="openList('{{ route('profile.following', $profileUser) }}', '{{ __('profile.following_label') }}')" class="hover:text-purple-400 transition text-left">
-                            <span class="font-bold">{{ $profileUser->following()->count() }}</span>
-                            <span class="text-xs text-slate-500">{{ __('profile.following_label') }}</span>
-                        </button>
+                        @auth
+                            <button type="button" @click="openList('{{ route('profile.followers', $profileUser) }}', '{{ __('profile.followers_label') }}')" class="hover:text-purple-400 transition text-left">
+                                <span class="font-bold">{{ $profileUser->followersCount() }}</span>
+                                <span class="text-xs text-slate-500">{{ __('profile.followers_label') }}</span>
+                            </button>
+                            <button type="button" @click="openList('{{ route('profile.following', $profileUser) }}', '{{ __('profile.following_label') }}')" class="hover:text-purple-400 transition text-left">
+                                <span class="font-bold">{{ $profileUser->following()->count() }}</span>
+                                <span class="text-xs text-slate-500">{{ __('profile.following_label') }}</span>
+                            </button>
+                        @else
+                            <div>
+                                <span class="font-bold">{{ $profileUser->followersCount() }}</span>
+                                <span class="text-xs text-slate-500">{{ __('profile.followers_label') }}</span>
+                            </div>
+                            <div>
+                                <span class="font-bold">{{ $profileUser->following()->count() }}</span>
+                                <span class="text-xs text-slate-500">{{ __('profile.following_label') }}</span>
+                            </div>
+                        @endauth
                     </div>
                 </div>
 
@@ -110,7 +127,7 @@
             @click.self="modalOpen = false" @keydown.escape.window="modalOpen = false">
             <div x-show="modalOpen" x-transition class="bg-slate-900 border border-slate-800 rounded-xl w-full max-w-md max-h-[80vh] flex flex-col">
                 <div class="flex items-center justify-between px-5 py-4 border-b border-slate-800">
-                    <h2 class="font-bold" x-text="modalTitle"></h2>
+                    <h2 class="font-bold text-white" x-text="modalTitle"></h2>
                     <button type="button" @click="modalOpen = false" class="text-slate-500 hover:text-white transition text-xl leading-none">&times;</button>
                 </div>
                 <div class="overflow-y-auto" x-html="modalHtml"></div>

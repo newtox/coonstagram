@@ -11,8 +11,8 @@
             <span class="text-lg font-bold text-purple-400">Coonstagram</span>
         </a>
 
-        <div class="flex items-center gap-4">
-            <div class="relative" x-data="{ open: false }">
+        <div class="relative" x-data="{ open: false }">
+            @auth
                 <button @click="open = !open" @click.outside="open = false" class="block">
                     <x-avatar :user="auth()->user()" size="w-8 h-8 text-sm" />
                 </button>
@@ -40,7 +40,16 @@
                         </button>
                     </form>
                 </div>
-            </div>
+            @else
+                <div class="flex items-center gap-2">
+                    <a href="{{ route('login') }}" class="text-sm px-3 py-1.5 rounded-lg text-slate-300 hover:text-white transition">
+                        {{ __('auth_pages.login') }}
+                    </a>
+                    <a href="{{ route('register') }}" class="text-sm px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white font-semibold transition">
+                        {{ __('auth_pages.register') }}
+                    </a>
+                </div>
+            @endauth
         </div>
     </nav>
 

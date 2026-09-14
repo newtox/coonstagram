@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\Request;
 
 class FeedController extends Controller
@@ -11,14 +12,19 @@ class FeedController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
+
+        if ($user instanceof MustVerifyEmail && ! $user->hasVerifiedEmail()) {
+            return redirect()->route('verification.notice');
+        }
+
         $filter = $request->query('filter', 'for-you');
-        $followingIds = $user->following()->pluck('users.id')->all();
+        $followingIds = $user ? $user->following()->pluck('users.id')->all() : [];
 
         $query = Post::with(['user', 'comments.user', 'comments.replies.user'])
             ->withCount('likes')
             ->latest();
 
-        if ($filter === 'following') {
+        if ($filter === 'following' && $user) {
             $query->whereIn('user_id', $followingIds);
         }
 
@@ -36,9 +42,9 @@ class FeedController extends Controller
             ]);
         }
 
-        $latestFollowers = $user->followers()->latest('follows.created_at')->take(2)->get();
+        $latestFollowers = $user ? $user->followers()->latest('follows.created_at')->take(2)->get() : collect();
 
-        $postableUsers = $user->isAdmin()
+        $postableUsers = $user && $user->isAdmin()
             ? User::where('id', '!=', $user->id)->orderBy('display_name')->get()
             : collect();
 

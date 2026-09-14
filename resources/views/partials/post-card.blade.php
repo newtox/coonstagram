@@ -23,35 +23,39 @@
             document.getElementById('post-{{ $post->id }}').outerHTML = data.html;
         }
     }" class="bg-slate-900 border border-slate-800 rounded-xl p-5">
-    <div class="flex items-center gap-3 mb-3">
-        <a href="{{ route('profile.show', $post->user) }}">
-            <x-avatar :user="$post->user" />
-        </a>
-        <div class="flex-1 min-w-0">
-            <a href="{{ route('profile.show', $post->user) }}" class="font-semibold hover:text-purple-400 transition truncate block">{{ $post->user->display_name ?? $post->user->name }}</a>
-            <p class="text-xs text-slate-500 truncate">&commat;{{ $post->user->username }} &middot; {{ $post->created_at->diffForHumans() }}</p>
+    <div class="flex flex-col sm:flex-row sm:items-center gap-3 mb-3">
+        <div class="flex items-center gap-3 min-w-0">
+            <a href="{{ route('profile.show', $post->user) }}" class="shrink-0">
+                <x-avatar :user="$post->user" />
+            </a>
+            <div class="min-w-0">
+                <a href="{{ route('profile.show', $post->user) }}" class="font-semibold hover:text-purple-400 transition truncate block">{{ $post->user->display_name ?? $post->user->name }}</a>
+                <p class="text-xs text-slate-500 truncate">&commat;{{ $post->user->username }} &middot; {{ $post->created_at->diffForHumans() }}</p>
+            </div>
         </div>
 
-        <div class="flex items-center gap-2 shrink-0">
-            @if ($post->user->id !== $user->id)
-                <form method="POST" action="{{ route('users.follow', $post->user) }}">
-                    @csrf
-                    @php $isFollowingAuthor = in_array($post->user->id, $followingIds); @endphp
-                    <button type="submit" class="text-xs px-3 py-1 rounded-lg transition {{ $isFollowingAuthor ? 'bg-slate-800 text-slate-300 hover:bg-slate-700' : 'bg-purple-600 text-white hover:bg-purple-500' }}">
-                        {{ $isFollowingAuthor ? __('ui.following') : __('ui.follow') }}
-                    </button>
-                </form>
-            @endif
+        <div class="flex items-center gap-2 shrink-0 sm:ml-auto">
+            @auth
+                @if ($post->user->id !== $user->id)
+                    <form method="POST" action="{{ route('users.follow', $post->user) }}">
+                        @csrf
+                        @php $isFollowingAuthor = in_array($post->user->id, $followingIds); @endphp
+                        <button type="submit" class="text-xs px-3 py-1 rounded-lg transition {{ $isFollowingAuthor ? 'bg-slate-800 text-slate-300 hover:bg-slate-700' : 'bg-purple-600 text-white hover:bg-purple-500' }}">
+                            {{ $isFollowingAuthor ? __('ui.following') : __('ui.follow') }}
+                        </button>
+                    </form>
+                @endif
 
-            @if ($post->user->id === $user->id || $user->isAdmin())
-                <form method="POST" action="{{ route('posts.destroy', $post) }}" x-ref="deletePostForm" @submit.prevent="confirmingDeletePost = true">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="text-xs px-3 py-1 rounded-lg bg-red-900/40 text-red-400 hover:bg-red-900/70 transition">
-                        {{ __('ui.delete') }}
-                    </button>
-                </form>
-            @endif
+                @if ($post->user->id === $user->id || $user->isAdmin())
+                    <form method="POST" action="{{ route('posts.destroy', $post) }}" x-ref="deletePostForm" @submit.prevent="confirmingDeletePost = true">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="text-xs px-3 py-1 rounded-lg bg-red-900/40 text-red-400 hover:bg-red-900/70 transition">
+                            {{ __('ui.delete') }}
+                        </button>
+                    </form>
+                @endif
+            @endauth
         </div>
     </div>
 
@@ -64,34 +68,44 @@
     @endif
 
     <div class="flex items-center gap-6 text-sm text-slate-400 border-t border-slate-800 pt-3">
-        <button type="button" @click="toggleLike()" class="flex items-center gap-1 transition" :class="liked ? 'text-pink-500' : 'hover:text-pink-400'">
-            &hearts; <span x-text="likeCount"></span> {{ __('feed.likes') }}
-        </button>
+        @auth
+            <button type="button" @click="toggleLike()" class="flex items-center gap-1 transition" :class="liked ? 'text-pink-500' : 'hover:text-pink-400'">
+                &hearts; <span x-text="likeCount"></span> {{ __('feed.likes') }}
+            </button>
+        @else
+            <a href="{{ route('login') }}" class="flex items-center gap-1 hover:text-pink-400 transition">
+                &hearts; {{ $post->likes_count }} {{ __('feed.likes') }}
+            </a>
+        @endauth
         <span>&#128172; {{ $post->comments->count() }} {{ __('feed.comments') }}</span>
 
-        @if ($post->user->id !== $user->id)
-            <div class="ml-auto">
-                @if ($post->isReportedBy($user))
-                    <span class="text-xs text-slate-600">{{ __('feed.reported') }}</span>
-                @else
-                    <button type="button" @click="reporting = !reporting" class="text-xs text-slate-500 hover:text-red-400 transition">
-                        {{ __('feed.report') }}
-                    </button>
-                @endif
-            </div>
-        @endif
+        @auth
+            @if ($post->user->id !== $user->id)
+                <div class="ml-auto">
+                    @if ($post->isReportedBy($user))
+                        <span class="text-xs text-slate-600">{{ __('feed.reported') }}</span>
+                    @else
+                        <button type="button" @click="reporting = !reporting" class="text-xs text-slate-500 hover:text-red-400 transition">
+                            {{ __('feed.report') }}
+                        </button>
+                    @endif
+                </div>
+            @endif
+        @endauth
     </div>
 
-    @if ($post->user->id !== $user->id && ! $post->isReportedBy($user))
-        <form x-show="reporting" x-cloak method="POST" action="{{ route('posts.report', $post) }}" class="flex gap-2 mt-2">
-            @csrf
-            <input type="text" name="reason" placeholder="{{ __('feed.report_reason_placeholder') }}"
-                class="flex-1 bg-slate-950 border border-slate-800 rounded-lg px-2 py-1 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-red-500">
-            <button type="submit" class="px-2 py-1 rounded-lg bg-red-900/40 text-red-400 hover:bg-red-900/70 text-xs transition">
-                {{ __('feed.report_submit') }}
-            </button>
-        </form>
-    @endif
+    @auth
+        @if ($post->user->id !== $user->id && ! $post->isReportedBy($user))
+            <form x-show="reporting" x-cloak method="POST" action="{{ route('posts.report', $post) }}" class="flex gap-2 mt-2">
+                @csrf
+                <input type="text" name="reason" placeholder="{{ __('feed.report_reason_placeholder') }}"
+                    class="flex-1 bg-slate-950 border border-slate-800 rounded-lg px-2 py-1 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-red-500">
+                <button type="submit" class="px-2 py-1 rounded-lg bg-red-900/40 text-red-400 hover:bg-red-900/70 text-xs transition">
+                    {{ __('feed.report_submit') }}
+                </button>
+            </form>
+        @endif
+    @endauth
 
     @foreach ($post->comments as $comment)
         <div class="mt-3 pl-4 border-l border-slate-800 text-sm">
@@ -103,22 +117,32 @@
                 </p>
             @endforeach
 
-            <form @submit.prevent="submitComment($event)" method="POST" action="{{ route('comments.store', $post) }}" class="flex gap-2 mt-2 pl-4">
-                @csrf
-                <input type="hidden" name="parent_id" value="{{ $comment->id }}">
-                <input type="text" name="body" placeholder="{{ __('feed.reply_placeholder') }}" required
-                    class="flex-1 bg-slate-950 border border-slate-800 rounded-lg px-2 py-1 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-purple-500">
-                <button type="submit" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs transition">{{ __('feed.reply') }}</button>
-            </form>
+            @auth
+                <form @submit.prevent="submitComment($event)" method="POST" action="{{ route('comments.store', $post) }}" class="flex gap-2 mt-2 pl-4">
+                    @csrf
+                    <input type="hidden" name="parent_id" value="{{ $comment->id }}">
+                    <input type="text" name="body" placeholder="{{ __('feed.reply_placeholder') }}" required
+                        class="flex-1 bg-slate-950 border border-slate-800 rounded-lg px-2 py-1 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-purple-500">
+                    <button type="submit" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs transition">{{ __('feed.reply') }}</button>
+                </form>
+            @endauth
         </div>
     @endforeach
 
-    <form @submit.prevent="submitComment($event)" method="POST" action="{{ route('comments.store', $post) }}" class="flex gap-2 mt-3">
-        @csrf
-        <input type="text" name="body" placeholder="{{ __('feed.write_comment') }}" required
-            class="flex-1 bg-slate-950 border border-slate-800 rounded-lg px-3 py-1.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500">
-        <button type="submit" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-sm transition">{{ __('feed.send') }}</button>
-    </form>
+    @auth
+        <form @submit.prevent="submitComment($event)" method="POST" action="{{ route('comments.store', $post) }}" class="flex gap-2 mt-3">
+            @csrf
+            <input type="text" name="body" placeholder="{{ __('feed.write_comment') }}" required
+                class="flex-1 bg-slate-950 border border-slate-800 rounded-lg px-3 py-1.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500">
+            <button type="submit" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-sm transition">{{ __('feed.send') }}</button>
+        </form>
+    @else
+        <a href="{{ route('login') }}" class="block mt-3 text-sm text-slate-500 hover:text-purple-400 transition">
+            {{ __('feed.login_to_comment') }}
+        </a>
+    @endauth
 
-    <x-confirm-modal show="confirmingDeletePost" onConfirm="$refs.deletePostForm.submit()" :text="__('feed.delete_confirm')" />
+    @auth
+        <x-confirm-modal show="confirmingDeletePost" onConfirm="$refs.deletePostForm.submit()" :text="__('feed.delete_confirm')" />
+    @endauth
 </div>
