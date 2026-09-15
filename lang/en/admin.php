@@ -18,4 +18,9 @@ return [
     'no_reports' => 'No reported posts.',
     'user_rights_updated' => 'User rights updated.',
     'account_deleted' => 'Account deleted.',
+    'edit_user' => 'Edit User',
+    'user_updated' => 'User updated.',
+    'edit' => 'Edit',
+    'new_password_optional' => 'New password (leave blank to keep unchanged)',
+    'confirm_new_password' => 'Confirm new password',
 ];

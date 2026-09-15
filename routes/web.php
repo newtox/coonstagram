@@ -44,6 +44,8 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
+    Route::get('/users/{targetUser}/edit', [AdminUserController::class, 'edit'])->name('users.edit');
+    Route::patch('/users/{targetUser}', [AdminUserController::class, 'update'])->name('users.update');
     Route::patch('/users/{targetUser}/toggle-admin', [AdminUserController::class, 'toggleAdmin'])->name('users.toggle-admin');
     Route::delete('/users/{targetUser}', [AdminUserController::class, 'destroy'])->name('users.destroy');
     Route::get('/reports', [AdminReportController::class, 'index'])->name('reports.index');

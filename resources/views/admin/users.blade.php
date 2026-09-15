@@ -35,6 +35,10 @@
 
                     @if ($targetUser->id !== $user->id)
                         <div class="flex items-center gap-2 shrink-0">
+                            <a href="{{ route('admin.users.edit', $targetUser) }}" class="text-xs px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition">
+                                {{ __('admin.edit') }}
+                            </a>
+
                             <form method="POST" action="{{ route('admin.users.toggle-admin', $targetUser) }}">
                                 @csrf
                                 @method('PATCH')
@@ -52,7 +56,12 @@
                             </form>
                         </div>
                     @else
-                        <span class="text-xs text-slate-600 shrink-0">{{ __('admin.thats_you') }}</span>
+                        <div class="flex items-center gap-2 shrink-0">
+                            <a href="{{ route('admin.users.edit', $targetUser) }}" class="text-xs px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition">
+                                {{ __('admin.edit') }}
+                            </a>
+                            <span class="text-xs text-slate-600">{{ __('admin.thats_you') }}</span>
+                        </div>
                     @endif
 
                     <x-confirm-modal show="confirmingDelete" onConfirm="$refs.deleteForm.submit()" :text="__('admin.delete_user_confirm')" />

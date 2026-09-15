@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class AdminUserController extends Controller
 {
@@ -15,6 +17,56 @@ class AdminUserController extends Controller
             'users' => $users,
             'user' => $request->user(),
         ]);
+    }
+
+    public function edit(Request $request, User $targetUser)
+    {
+        return view('admin.users-edit', [
+            'targetUser' => $targetUser,
+            'user' => $request->user(),
+        ]);
+    }
+
+    public function update(Request $request, User $targetUser)
+    {
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email,' . $targetUser->id],
+            'username' => ['required', 'string', 'max:255', 'regex:/^[a-z0-9_]+$/', 'unique:users,username,' . $targetUser->id],
+            'display_name' => ['nullable', 'string', 'max:255'],
+            'title' => ['nullable', 'string', 'max:255'],
+            'bio' => ['nullable', 'string', 'max:1000'],
+            'avatar' => ['nullable', 'image', 'max:2048'],
+            'password' => ['nullable', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $targetUser->fill([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'username' => $data['username'],
+            'display_name' => $data['display_name'] ?? null,
+            'title' => $data['title'] ?? null,
+            'bio' => $data['bio'] ?? null,
+        ]);
+
+        if ($targetUser->isDirty('email')) {
+            $targetUser->email_verified_at = null;
+        }
+
+        if (! empty($data['password'])) {
+            $targetUser->password = Hash::make($data['password']);
+        }
+
+        if ($request->hasFile('avatar')) {
+            if ($targetUser->avatar_path) {
+                Storage::disk('public')->delete($targetUser->avatar_path);
+            }
+            $targetUser->avatar_path = $request->file('avatar')->store('avatars', 'public');
+        }
+
+        $targetUser->save();
+
+        return redirect()->route('admin.users.index')->with('status', __('admin.user_updated'));
     }
 
     public function toggleAdmin(Request $request, User $targetUser)

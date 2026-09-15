@@ -18,4 +18,9 @@ return [
     'no_reports' => 'Keine gemeldeten Posts.',
     'user_rights_updated' => 'Nutzerrechte aktualisiert.',
     'account_deleted' => 'Account gelöscht.',
+    'edit_user' => 'Nutzer bearbeiten',
+    'user_updated' => 'Nutzer aktualisiert.',
+    'edit' => 'Bearbeiten',
+    'new_password_optional' => 'Neues Passwort (leer lassen, um es nicht zu ändern)',
+    'confirm_new_password' => 'Neues Passwort bestätigen',
 ];
