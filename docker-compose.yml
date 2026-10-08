@@ -1,0 +1,18 @@
+services:
+  web:
+    image: ghcr.io/newtox/coonstagram:latest
+    container_name: coonstagram
+    restart: unless-stopped
+    ports:
+      - 127.0.0.1:8092:8080
+    env_file:
+      - stack.env
+    environment:
+      APP_ENV: production
+      APP_DEBUG: "false"
+      DB_HOST: ${DB_HOST:-host.docker.internal}
+      SESSION_SECURE_COOKIE: "true"
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    volumes:
+      - /docker_volumes/coonstagram/public:/var/www/html/storage/app/public

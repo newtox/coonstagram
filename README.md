@@ -88,6 +88,20 @@ A [Nix flake](./flake.nix) is included if you prefer a reproducible dev shell (`
 - Access the application at `http://127.0.0.1:8000`
 - Log in with a seeded character account (e.g. `kyle_broflovski@southpark.test` / `password`) or the admin account (`you@southpark.test` / `password`)
 
+
+## Deployment
+
+On every push to `main`, the GitHub Action in `.github/workflows/docker.yml` builds a Docker image and publishes it as `ghcr.io/newtox/coonstagram`.
+
+The server runs the image from `docker-compose.yml` as a Portainer stack:
+
+- Configuration comes from the stack's environment variables (Portainer provides them as `stack.env`).
+- Uploaded avatars and post images live in `/docker_volumes/coonstagram/public`, mounted to `storage/app/public`.
+- The app listens on `127.0.0.1:8092` behind Caddy (`reverse_proxy 127.0.0.1:8092`).
+- Migrations run automatically when the container starts.
+
+To update: push to `main`, wait for the action to finish, then use **Pull and redeploy** on the stack in Portainer.
+
 ## Contributing
 
 Want to improve Coonstagram? Here's how:
