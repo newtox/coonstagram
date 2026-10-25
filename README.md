@@ -124,4 +124,4 @@ By contributing, you agree that your contributions will be licensed under the sa
 
 Have questions or found a bug?
 - Open an issue on GitHub
-- Or reach out to me at [contact@placeholder.de](mailto:contact@placeholder.de)
+- Or reach out to me at [justin.lys26@gmail.com](mailto:justin.lys26@gmail.com)
